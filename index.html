@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>REsnack — Bærekraftig snacks for Bjerke VGS</title>
+<meta name="description" content="REsnack - elevbedrift for rimelige og praktiske måltider.">
+<style>
+:root{
+  --bg: #fefefe;
+  --card-bg: #ffffff;
+  --muted: #52666b;
+  --accent-pink: #ff66a3;
+  --accent-green: #2fbd6d;
+  --radius:12px;
+  --max-width:1200px;
+  --gap:24px;
+}
+
+/* Grunnleggende stil */
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  font-family:'Inter', system-ui, Arial, sans-serif;
+  background:var(--bg);
+  color:#082027;
+  line-height:1.5;
+}
+
+a{text-decoration:none;color:inherit;}
+a:hover{color:var(--accent-green);}
+
+/* Header */
+header{
+  text-align:center;
+  padding:30px var(--gap);
+}
+
+.logo{
+  display:inline-block;
+  padding:5px;
+  border-radius:var(--radius);
+  background: linear-gradient(90deg, var(--accent-pink), var(--accent-green));
+}
+
+.logo img{
+  display:block;
+  max-height:180px;
+  border-radius:calc(var(--radius)-3px);
+  background:white;
+  padding:8px;
+  margin:0 auto;
+}
+
+.tagline{
+  margin-top:12px;
+  font-weight:600;
+  color:var(--accent-green);
+  font-size:1.3rem;
+}
+
+nav{
+  margin-top:20px;
+}
+
+nav a{
+  margin:0 14px;
+  font-weight:500;
+  color:var(--muted);
+  font-size:0.95rem;
+}
+
+/* Hero med subtil gradient-dekorasjon */
+.hero{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:80px var(--gap);
+  border-radius: var(--radius);
+  margin:20px var(--gap);
+  background: linear-gradient(135deg, #e8fff2, #fff0f5);
+  position:relative;
+  overflow:hidden;
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  width:300px;
+  height:300px;
+  border-radius:50%;
+  background:rgba(255,102,163,0.1);
+  top:-50px;
+  left:-50px;
+  animation: float1 8s ease-in-out infinite;
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  width:200px;
+  height:200px;
+  border-radius:50%;
+  background:rgba(47,189,109,0.1);
+  bottom:-50px;
+  right:-50px;
+  animation: float2 10s ease-in-out infinite;
+}
+
+@keyframes float1 {
+  0% { transform: translate(0,0) scale(1); }
+  50% { transform: translate(10px,10px) scale(1.05); }
+  100% { transform: translate(0,0) scale(1); }
+}
+
+@keyframes float2 {
+  0% { transform: translate(0,0) scale(1); }
+  50% { transform: translate(-10px,15px) scale(1.03); }
+  100% { transform: translate(0,0) scale(1); }
+}
+
+.hero h1{
+  font-size:2rem;
+  margin-bottom:24px;
+  color:#082027;
+  max-width:700px;
+  z-index:1;
+  position:relative;
+}
+
+.btn-primary{
+  background: linear-gradient(90deg, var(--accent-green), var(--accent-pink));
+  color:#021017;
+  padding:12px 28px;
+  border-radius:8px;
+  font-weight:600;
+  border:none;
+  cursor:pointer;
+  transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+  z-index:1;
+  position:relative;
+}
+
+.btn-primary:hover{
+  opacity:0.95;
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.container{
+  max-width: var(--max-width);
+  margin:0 auto;
+  padding:var(--gap);
+}
+
+section{
+  margin-top:40px;
+}
+
+h2{
+  margin-bottom:16px;
+  color:#082027;
+}
+
+.small{
+  color:var(--muted);
+  font-size:0.95rem;
+}
+
+/* Kort med lett gradient bakgrunn og hover */
+.card{
+  background: linear-gradient(135deg, #ffffff, #fdfdfd);
+  padding:24px;
+  border-radius:var(--radius);
+  box-shadow:0 6px 18px rgba(0,0,0,0.06);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+}
+
+/* Team-grid */
+.team-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:16px;
+  margin-top:12px;
+}
+
+.team-member{
+  text-align:center;
+  padding:16px;
+  border-radius:var(--radius);
+  background: linear-gradient(135deg, #ffffff, #f9fff8);
+  transition:transform 0.2s, box-shadow 0.2s;
+}
+
+.team-member:hover{
+  transform:translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* Team-lenker rosa */
+.team-member a{
+  font-weight:600;
+  display:block;
+  margin-bottom:4px;
+  color: var(--accent-pink);
+}
+
+/* Spørsmål grønne */
+form label{
+  color: var(--accent-green);
+  font-weight:600;
+}
+
+form{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  margin-top:12px;
+}
+
+input[type=text], textarea, select{
+  width:100%;
+  padding:10px;
+  border-radius:8px;
+  border:1px solid #e6eef0;
+  font-size:0.95rem;
+}
+
+.btn-outline{
+  background:transparent;
+  border:1px solid #dfeff0;
+  color:#021017;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-outline:hover{
+  transform: scale(1.03);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+footer{
+  text-align:center;
+  margin:48px 0 24px;
+  color:var(--muted);
+  font-size:0.9rem;
+}
+
+@media(max-width:900px){
+  .hero h1{font-size:1.6rem;}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">
+    <img src="REsnack.png" alt="REsnack logo">
+  </div>
+  <div class="tagline">Bærekraftig • Rimelig • Tilgjengelig</div>
+  <nav>
+    <a href="#about">Om oss</a>
+    <a href="#team">Team</a>
+    <a href="#contract">Hva vi skal</a>
+    <a href="#times">Tider & drift</a>
+    <a href="#survey">Undersøkelse</a>
+    <a href="#contact">Kontakt</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Energi for dagen – Bærekraftige snacks for elever</h1>
+  <button class="btn-primary" onclick="document.getElementById('survey').scrollIntoView({behavior:'smooth'})">Fyll ut undersøkelsen</button>
+</section>
+
+<div class="container">
+  <section id="about">
+    <h2>Hva driver vi med?</h2>
+    <div class="card small">
+      Vi gjør det enkelt for elever å kjøpe rimelig og praktisk mat på skolen. Produktene merkes tydelig med ingredienser og allergiinformasjon.
+    </div>
+  </section>
+
+  <section id="team">
+    <h2>Teamet</h2>
+    <div class="team-grid">
+      <div class="team-member">
+        <a href="Munira.html">Munira Awil</a>
+        <div class="small">Daglig leder</div>
+      </div>
+      <div class="team-member">
+        <a href="Kanish.html">Kanish Sandrakumar</a>
+        <div class="small">IT & produkt</div>
+      </div>
+      <div class="team-member">
+        <a href="Signe.html">Signe Bwira Kisaruko</a>
+        <div class="small">Bærekraft</div>
+      </div>
+      <div class="team-member">
+        <a href="Ibtisaam.html">Ibtisaam Abdulaahi Ahmed</a>
+        <div class="small">Markedsføring</div>
+      </div>
+      <div class="team-member">
+        <a href="Mahtab.html">Mahtab Ghobadi</a>
+        <div class="small">Økonomi</div>
+      </div>
+      <div class="team-member">
+        <strong>Alle</strong>
+        <div class="small">Salgsansvarlig</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contract">
+    <h2>Hva vi skal og hvordan vi hjelper dere</h2>
+    <div class="card small">
+      REsnack tilbyr praktiske og prisvennlige alternativer, tydelig merket for allergier. Teamets interne kontrakt er privat — denne siden viser det som er relevant for elever og samarbeidspartnere.
+    </div>
+  </section>
+
+  <section id="times">
+    <h2>Tider og drift</h2>
+    <div class="card small">
+      Daglig drift: 08:00–09:30. Pakketeam møter 07:30. Vi sørger for trygg merking av ingredienser.
+    </div>
+  </section>
+
+  <section id="survey">
+    <h2>Spørreundersøkelse</h2>
+    <div class="card">
+      <p class="small">
+        Undersøkelsen er anonym. Vi samler ikke navn eller e-post. Svar lagres lokalt og kan eksporteres av daglig leder via admin-visningen.
+      </p>
+      <form id="surveyForm">
+        <label for="choice">Ønsker du individuelle snacks eller en pakke?</label>
+        <select id="choice" name="choice">
+          <option value="individuell">Individuell snacks</option>
+          <option value="pakke">Pakke</option>
+          <option value="begge">Begge deler</option>
+        </select>
+
+        <label for="allergies">Allergier / intoleranser</label>
+        <input id="allergies" name="allergies" type="text" placeholder="F.eks. peanøtter, laktose">
+
+        <label for="drinks">Ønsket drikke</label>
+        <input id="drinks" name="drinks" type="text" placeholder="F.eks. vann, juice">
+
+        <label for="other">Andre kommentarer</label>
+        <textarea id="other" name="other" rows="4" placeholder="Skriv her..."></textarea>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button type="submit" class="btn btn-primary">Send svar</button>
+          <button type="button" id="clearLocal" class="btn btn-outline">Tøm lokale svar</button>
+        </div>
+      </form>
+      <div id="submittedMessage" class="small" style="display:none;margin-top:10px;">Takk — svaret er mottatt.</div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Kontakt</h2>
+    <div class="card small">
+      For samarbeid: <strong>REsnack.ub@gmail.com</strong>. Daglig leder (Munira) kan eksportere svar fra admin-visningen.
+    </div>
+  </section>
+
+  <footer>© REsnack — Elevbedrift ved Bjerke videregående</footer>
+</div>
+
+<script>
+(function(){
+  const KEY = 'resnack_responses';
+  const form = document.getElementById('surveyForm');
+  const submitted = document.getElementById('submittedMessage');
+  const clearBtn = document.getElementById('clearLocal');
+
+  function loadResponses(){ try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch(e){ return []; } }
+  function saveResponse(r){ const arr = loadResponses(); arr.push(r); localStorage.setItem(KEY, JSON.stringify(arr)); }
+
+  form.addEventListener('submit', e=>{
+    e.preventDefault();
+    const data={
+      time:new Date().toISOString(),
+      choice:form.choice.value,
+      allergies:form.allergies.value,
+      drinks:form.drinks.value,
+      other:form.other.value
+    }; 
+    saveResponse(data);
+    submitted.style.display='block';
+    setTimeout(()=>submitted.style.display='none',2200);
+    form.reset();
+  });
+
+  clearBtn.addEventListener('click', ()=>{
+    localStorage.removeItem(KEY);
+    alert('Lokale svar fjernet');
+  });
+})();
+</script>
+</body>
+</html>
