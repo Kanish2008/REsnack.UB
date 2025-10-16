@@ -1,62 +1,45 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="no">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Signe Bwira Kisaruko — REsnack Team</title>
+<title>Signe Bwira Kisaruko — REsnack</title>
 <style>
-:root{
-  --bg:#fdfdfd;
-  --card-bg:#ffffff;
-  --accent-pink:#ff66a3;
-  --accent-green:#2fbd6d;
-  --radius:12px;
-}
-
-body{
-  margin:0;
-  font-family: 'Inter', system-ui, Arial, sans-serif;
-  background:var(--bg);
-  color:#082027;
-  line-height:1.5;
-  padding:20px;
-}
-
-a{text-decoration:none;color:var(--accent-pink);}
-a:hover{text-decoration:underline;}
-
-.card{
-  max-width:600px;
-  margin:40px auto;
-  background: linear-gradient(135deg, #ffffff, #fdfdfd);
-  padding:24px;
-  border-radius:var(--radius);
-  box-shadow:0 6px 18px rgba(0,0,0,0.06);
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.card:hover{
-  transform: translateY(-3px);
-  box-shadow:0 12px 28px rgba(0,0,0,0.08);
-}
-
-h1{margin-top:0;}
-h2{margin-bottom:12px;}
+body { margin:0; font-family:'Inter', system-ui, Arial, sans-serif; background:#f5f5f5; color:#082027; overflow-x:hidden; }
+.container { max-width:600px; margin:60px auto; padding:30px; background:white; border-radius:15px; border:4px solid #2fbd6d; position:relative; box-shadow:0 8px 24px rgba(0,0,0,0.08); overflow:hidden; }
+h1 { font-size:2rem; text-align:center; background: linear-gradient(90deg,#ff66a3,#2fbd6d); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:5px; }
+h3 { text-align:center; font-size:1.2rem; color:#52666b; margin-bottom:20px; }
+h2 { color:#52666b; font-size:1.2rem; margin-top:20px; margin-bottom:10px; }
+p { font-size:1rem; line-height:1.6; margin:6px 0; }
+.btn-back { display:inline-block; margin-top:25px; padding:10px 22px; border-radius:8px; font-weight:600; color:white; text-decoration:none; background: linear-gradient(90deg,#2fbd6d,#ff66a3); transition: transform 0.2s, box-shadow 0.3s, filter 0.3s; }
+.btn-back:hover { transform: scale(1.05); box-shadow:0 8px 25px rgba(47,189,109,0.6),0 0 15px rgba(255,102,163,0.6); filter: brightness(1.1); }
+.flower { position:absolute; width:40px; height:40px; background: radial-gradient(circle at 20% 20%, #ff66a3, #2fbd6d); border-radius:50%; opacity:0.3; animation: float 12s linear infinite; }
+.flower1 { top:-10px; left:-10px; animation-delay:0s; }
+.flower2 { top:-10px; right:-10px; animation-delay:3s; }
+.flower3 { bottom:-10px; left:-10px; animation-delay:6s; }
+.flower4 { bottom:-10px; right:-10px; animation-delay:9s; }
+@keyframes float { 0% { transform: translateY(0px) translateX(0px); } 50% { transform: translateY(-20px) translateX(15px); } 100% { transform: translateY(0px) translateX(0px); } }
 </style>
 </head>
 <body>
+<div class="container">
+  <div class="flower flower1"></div>
+  <div class="flower flower2"></div>
+  <div class="flower flower3"></div>
+  <div class="flower flower4"></div>
 
-<div class="card">
   <h1>Signe Bwira Kisaruko</h1>
-  <p><strong>Rolle:</strong> Bærekraft — REsnack</p>
-  <p><strong>Telefon:</strong> +47 455 55 4833</p>
-  <p><strong>Email:</strong> signekiza@gmail.com</p>
+  <h3>Bærekraft</h3>
+
+  <h2>Kontaktinformasjon</h2>
+  <p><strong>Telefon:</strong> +47 personlig</p>
+  <p><strong>E-post:</strong> sikia005@osloskolen.no</p>
 
   <h2>Hva Signe bidrar med</h2>
-  <p>Fokus på bærekraft, miljøvennlige løsninger og ansvarlig innkjøp.</p>
+  <p>Signe fokuserer på bærekraft, miljøvennlige løsninger og ansvarlig innkjøp. Hun sørger for at REsnack prioriterer grønne alternativer i produkter og emballasje.</p>
 
-  <a href="index.html">← Tilbake til REsnack</a>
+  <a href="index.html" class="btn-back">← Tilbake til REsnack</a>
 </div>
-
 </body>
 </html>
+
