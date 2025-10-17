@@ -16,155 +16,116 @@
   --gap: 24px;
 }
 
-/* Grunnstil */
-* { box-sizing:border-box; }
-body { margin:0; font-family:'Inter', system-ui, Arial, sans-serif; background:var(--bg); color:#082027; line-height:1.5; overflow-x:hidden; }
-a { text-decoration:none; color:inherit; } 
-a:hover { color:var(--accent-green); }
+/* Global styling */
+*{box-sizing:border-box;}
+body{margin:0;font-family:'Inter',system-ui,Arial,sans-serif;background:var(--bg);color:#082027;line-height:1.5;}
+a{text-decoration:none;color:inherit;}a:hover{color:var(--accent-green);}
+header{text-align:center;padding:30px var(--gap);}
+.logo{display:inline-block;padding:5px;border-radius:var(--radius);background:linear-gradient(90deg,var(--accent-pink),var(--accent-green));}
+.logo img{display:block;max-height:180px;border-radius:calc(var(--radius)-3px);background:white;padding:8px;margin:0 auto;}
+.tagline{margin-top:12px;font-weight:600;color:var(--accent-green);font-size:1.3rem;}
+nav{margin-top:20px;}nav a{margin:0 14px;font-weight:500;color:var(--muted);font-size:0.95rem;}
+.container{max-width:var(--max-width);margin:0 auto;padding:var(--gap);}
+section{margin-top:40px;}h2{margin-bottom:16px;color:#082027;} .small{color:var(--muted);font-size:0.95rem;}
+.card{background:linear-gradient(135deg,#ffffff,#fdfdfd);padding:24px;border-radius:var(--radius);box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:transform 0.2s,box-shadow 0.2s;}
+.card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(0,0,0,0.08);}
+footer{text-align:center;margin:48px 0 24px;color:var(--muted);font-size:0.9rem;position:relative;}
 
-/* Header */
-header { text-align:center; padding:30px var(--gap); position:relative; }
-.logo { display:inline-block; padding:5px; border-radius:var(--radius); background: linear-gradient(90deg, var(--accent-pink), var(--accent-green)); }
-.logo img { display:block; max-height:180px; border-radius:calc(var(--radius)-3px); background:white; padding:8px; margin:0 auto; }
-.tagline { margin-top:12px; font-weight:600; color:var(--accent-green); font-size:1.3rem; }
-nav { margin-top:20px; } 
-nav a { margin:0 14px; font-weight:500; color:var(--muted); font-size:0.95rem; }
-
-/* Layout */
-.container { max-width: var(--max-width); margin:0 auto; padding:var(--gap); }
-section { margin-top:40px; }
-h2 { margin-bottom:16px; color:#082027; position:relative; }
-.small { color:var(--muted); font-size:0.95rem; }
-.card { background: linear-gradient(135deg, #ffffff, #fdfdfd); padding:24px; border-radius:var(--radius); box-shadow:0 6px 18px rgba(0,0,0,0.06); transition: transform 0.2s, box-shadow 0.2s; }
-.card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(0,0,0,0.08); }
-
-/* Hero */
-.hero { display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:80px var(--gap); border-radius: var(--radius); margin:20px var(--gap); background: linear-gradient(135deg, #e8fff2, #fff0f5); position:relative; overflow:hidden; }
-.hero h1 { font-size:2rem; margin-bottom:24px; color:#082027; max-width:700px; }
-.btn-primary { background: linear-gradient(90deg, var(--accent-green), var(--accent-pink)); color:#021017; padding:12px 28px; border-radius:8px; font-weight:600; border:none; cursor:pointer; transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s; }
-.btn-primary:hover { opacity:0.95; transform: scale(1.05); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
-
-/* TEAM SEKSJON */
-#team {
-  background: linear-gradient(135deg, #f8fff9, #fff6fa);
-  padding:50px 24px;
-  border-radius:20px;
-  box-shadow: 0 0 20px rgba(47,189,109,0.08);
-  animation: fadeIn 1s ease;
-  position:relative;
-  overflow:hidden;
-}
-
-#team h2 {
+/* Hero med fade-in animasjon */
+.hero {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
   text-align:center;
-  font-size:1.8rem;
-  margin-bottom:30px;
-}
-#team h2::after {
-  content:"";
-  display:block;
-  width:120px;
-  height:4px;
-  background: linear-gradient(90deg, var(--accent-green), var(--accent-pink));
-  margin:10px auto 0;
-  border-radius:2px;
-  animation: glow 2s infinite alternate;
-}
-
-@keyframes glow {
-  0% { opacity:0.4; box-shadow:0 0 5px var(--accent-pink); }
-  100% { opacity:1; box-shadow:0 0 15px var(--accent-green); }
-}
-
-.team-grid { 
-  display:grid; 
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); 
-  gap:24px; 
-  margin-top:30px;
-}
-
-.team-member {
-  text-align:center;
-  padding:24px;
-  border-radius:var(--radius);
-  background:white;
-  box-shadow:0 6px 18px rgba(0,0,0,0.06);
-  transition:transform 0.3s, box-shadow 0.3s, opacity 0.6s, transform 0.6s;
+  padding:80px var(--gap);
+  border-radius: var(--radius);
+  margin:20px var(--gap);
+  background: linear-gradient(135deg,#e8fff2,#fff0f5);
   position:relative;
   overflow:hidden;
   opacity:0;
-  transform: translateY(30px);
+  transform:translateY(40px);
+  animation: fadeInHero 1.2s ease-out forwards;
 }
-
-.team-member.visible {
-  opacity:1;
-  transform: translateY(0);
+@keyframes fadeInHero {
+  to { opacity:1; transform:translateY(0); }
 }
+.hero h1{font-size:2rem;margin-bottom:24px;color:#082027;max-width:700px;z-index:1;position:relative;}
+.btn-primary{background:linear-gradient(90deg,var(--accent-green),var(--accent-pink));color:#021017;padding:12px 28px;border-radius:8px;font-weight:600;border:none;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s,opacity 0.2s;z-index:1;position:relative;}
+.btn-primary:hover{opacity:0.95;transform:scale(1.05);box-shadow:0 8px 20px rgba(0,0,0,0.12);}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;opacity:0.15;}
+.hero::before{width:80px;height:80px;background:var(--accent-pink);top:40px;left:25%;}
+.hero::after{width:60px;height:60px;background:var(--accent-green);bottom:60px;right:30%;}
 
-.team-member:hover {
-  transform:translateY(-8px);
-  box-shadow:0 12px 28px rgba(47,189,109,0.2);
-  border:1px solid rgba(47,189,109,0.2);
+/* Glow animation for button */
+@keyframes glowPulse {
+  0% { box-shadow: 0 0 10px rgba(47,189,109,0.4), 0 0 20px rgba(255,102,163,0.3); }
+  50% { box-shadow: 0 0 25px rgba(47,189,109,0.6), 0 0 35px rgba(255,102,163,0.5); }
+  100% { box-shadow: 0 0 10px rgba(47,189,109,0.4), 0 0 20px rgba(255,102,163,0.3); }
 }
+.btn-primary { animation: glowPulse 3s infinite ease-in-out; }
 
-/* Hover effekt på navn med gradient og glød */
+/* Team grid – pyramid layout */
+.team-grid { display:flex; flex-direction:column; gap:20px; align-items:center; }
+.team-row-1, .team-row-2 { display:flex; gap:18px; justify-content:center; flex-wrap:wrap; }
+.team-member {
+  background:linear-gradient(135deg,#ffffff,#f9fff8);
+  padding:16px;
+  text-align:center;
+  border-radius:var(--radius);
+  box-shadow:0 4px 12px rgba(0,0,0,0.05);
+  transition:transform 0.2s,box-shadow 0.2s;
+  position:relative;
+  overflow:hidden;
+}
+.team-member:hover{transform:translateY(-5px);box-shadow:0 10px 25px rgba(0,0,0,0.1);}
 .team-member a {
   font-weight:700;
-  background: linear-gradient(90deg, #ff66a3, #2fbd6d);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display:inline-block;
-  font-size:1.1rem;
+  display:block;
+  margin-bottom:4px;
+  background:linear-gradient(90deg,var(--accent-green),var(--accent-pink));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  cursor:pointer;
   position:relative;
-  transition: all 0.3s ease;
+  z-index:2;
 }
-.team-member a::after {
-  content:"";
-  position:absolute;
-  bottom:-6px;
-  left:0;
-  width:0;
-  height:3px;
-  background: linear-gradient(90deg, #2fbd6d, #ff66a3);
-  border-radius:2px;
-  transition: width 0.4s ease;
-  box-shadow: 0 0 8px rgba(255,102,163,0.6), 0 0 12px rgba(47,189,109,0.6);
-}
-.team-member:hover a::after { width:100%; }
-.team-member:hover a {
-  transform: scale(1.05);
-  text-shadow: 0 0 8px rgba(255,102,163,0.5), 0 0 12px rgba(47,189,109,0.5);
-}
+.team-member span{color:var(--muted);font-size:0.9rem;}
+.team-member::after{content:"";position:absolute;bottom:0;left:0;height:3px;width:0;background:var(--accent-green);transition:width 0.3s ease;}
+.team-member:hover::after{width:100%;}
 
-.team-member span { display:block; margin-top:6px; font-size:0.95rem; color:var(--muted); }
+/* Undersøkelse */
+#survey-decor{position:relative;overflow:hidden;background:linear-gradient(90deg,var(--accent-pink),var(--accent-green));padding:4px;border-radius:15px;margin:0 auto;max-width:720px;}
+#survey-inner{background:linear-gradient(135deg,#f0f9f4,#fff4f9);padding:15px 20px;border-radius:11px;position:relative;box-shadow:0 6px 15px rgba(0,0,0,0.1);}
+#survey iframe{width:100%;height:380px;border-radius:12px;border:none;opacity:0;transform:translateY(30px);transition:all 0.8s ease;}
+#survey.visible iframe{opacity:1;transform:translateY(0);}
+@media(max-width:900px){#survey iframe{height:340px;}}
+@media(max-width:600px){#survey iframe{height:300px;}}
 
-/* Blomster rundt team */
-.flower {
-  position:absolute;
-  width:40px;
-  height:40px;
-  background: radial-gradient(circle at 20% 20%, #ff66a3, #2fbd6d);
-  border-radius:50%;
-  opacity:0.3;
-  animation: float 12s linear infinite;
-}
-.flower1 { top:-10px; left:-10px; animation-delay:0s; }
-.flower2 { top:-10px; right:-10px; animation-delay:3s; }
-.flower3 { bottom:-10px; left:-10px; animation-delay:6s; }
-.flower4 { bottom:-10px; right:-10px; animation-delay:9s; }
+/* Dekorlinjer */
+.form-decor-line{position:absolute;background:linear-gradient(90deg,var(--accent-pink),var(--accent-green));opacity:0.25;border-radius:4px;animation:slideGrad 6s ease-in-out infinite alternate;}
+.form-decor-top{height:4px;width:80%;top:0;left:10%;}
+.form-decor-bottom{height:4px;width:80%;bottom:0;left:10%;animation-delay:3s;}
+.form-decor-left{width:4px;height:80%;top:10%;left:0;animation-delay:1s;}
+.form-decor-right{width:4px;height:80%;top:10%;right:0;animation-delay:2s;}
+@keyframes slideGrad{0%{transform:translateX(0);opacity:0.25;}50%{transform:translateX(15px);opacity:0.35;}100%{transform:translateX(0);opacity:0.25;}}
 
-@keyframes float {
-  0% { transform: translateY(0px) translateX(0px); }
-  50% { transform: translateY(-20px) translateX(15px); }
-  100% { transform: translateY(0px) translateX(0px); }
+/* Footer dekor */
+footer::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background: linear-gradient(90deg, var(--accent-green), var(--accent-pink));
+  opacity: 0.5;
 }
 
-/* Footer */
-footer { text-align:center; margin:48px 0 24px; color:var(--muted); font-size:0.9rem; }
-
-@keyframes fadeIn {
-  from {opacity:0;}
-  to {opacity:1;}
+/* Responsive pyramid: stack på mobil */
+@media(max-width:768px){
+  .team-row-1, .team-row-2 { flex-direction:column; gap:12px; }
 }
 </style>
 </head>
@@ -189,6 +150,7 @@ footer { text-align:center; margin:48px 0 24px; color:var(--muted); font-size:0.
 </section>
 
 <div class="container">
+
 <section id="about">
   <h2>Hva driver vi med?</h2>
   <div class="card small">
@@ -198,19 +160,17 @@ footer { text-align:center; margin:48px 0 24px; color:var(--muted); font-size:0.
 
 <section id="team">
   <h2>Teamet vårt</h2>
-
-  <!-- Blomster -->
-  <div class="flower flower1"></div>
-  <div class="flower flower2"></div>
-  <div class="flower flower3"></div>
-  <div class="flower flower4"></div>
-
+  <!-- Pyramid layout: 3 øverst, 2 under -->
   <div class="team-grid">
-    <div class="team-member"><a href="Munira.html">Munira Awil</a><span>Daglig leder</span></div>
-    <div class="team-member"><a href="Mahtab.html">Mahtab Ghobadi</a><span>Økonomi</span></div>
-    <div class="team-member"><a href="Ibtisaam.html">Ibtisaam Abdulaahi</a><span>Markedsføring</span></div>
-    <div class="team-member"><a href="Signe.html">Signe Bwira Kisaruko</a><span>Bærekraft</span></div>
-    <div class="team-member"><a href="Kanish.html">Kanish Sandrakumar</a><span>IT & Produkt</span></div>
+    <div class="team-row-1">
+      <div class="team-member"><a href="Munira.html">Munira Awil</a><span>Daglig leder</span></div>
+      <div class="team-member"><a href="Mathab.html">Mahtab Ghobadi</a><span>Økonomi</span></div>
+      <div class="team-member"><a href="Kanish.html">Kanish Sandrakumar</a><span>IT & Produkt</span></div>
+    </div>
+    <div class="team-row-2">
+      <div class="team-member"><a href="Ibtisaam.html">Ibtisaam Abdulaahi</a><span>Markedsføring</span></div>
+      <div class="team-member"><a href="Signe.html">Signe Bwira Kisaruko</a><span>Bærekraft</span></div>
+    </div>
   </div>
 </section>
 
@@ -231,27 +191,24 @@ footer { text-align:center; margin:48px 0 24px; color:var(--muted); font-size:0.
 <section id="contact">
   <h2>Kontakt</h2>
   <div class="card small">
-    For samarbeid: <strong>REsnack.ub@gmail.com</strong>.
+    For samarbeid: <strong>REsnack.ub@gmail.com</strong>
   </div>
 </section>
 
 <footer>© REsnack — Elevbedrift ved Bjerke videregående</footer>
+</div>
 
 <script>
-const teamCards = document.querySelectorAll('.team-member');
-
-function revealTeam() {
-  const triggerBottom = window.innerHeight * 0.85;
-  teamCards.forEach(card => {
-    const cardTop = card.getBoundingClientRect().top;
-    if(cardTop < triggerBottom) {
-      card.classList.add('visible');
-    }
-  });
-}
-
-window.addEventListener('scroll', revealTeam);
-window.addEventListener('load', revealTeam);
+// Fade-in for undersøkelsen
+const survey = document.getElementById('survey');
+window.addEventListener('scroll', () => {
+  const rect = survey.getBoundingClientRect();
+  if(rect.top < window.innerHeight - 150) {
+    survey.classList.add('visible');
+  }
+});
 </script>
+
 </body>
 </html>
+
