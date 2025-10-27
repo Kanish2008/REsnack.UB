@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="no">
+    <header>
+      <div class="logo-placeholder" aria-hidden="true">Logo</div>
+      <div>
+        <div class="kicker"><span style="color:var(--pink);font-weight:800">RE</span><span style="color:var(--green);font-weight:800;margin-left:4px">snack</span></div>
+        <h1>Hva vi skal og hvordan vi skal hjelpe dere</h1>
+      </div>
+    </header>
+    .container{max-width:980px;margin:40px auto;padding:28px}
+    header{display:flex;align-items:center;gap:18px}
+    #logoPlace{width:88px;height:88px;border-radius:12px;background:linear-gradient(180deg,#111,#0a0a0a);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.6)}
+    #logoPlace img{max-width:82px;max-height:82px}
+    h1{margin:0;font-size:28px;background:linear-gradient(90deg,var(--pink),var(--green));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .kicker{color:white;background:var(--pink);display:inline-block;padding:6px 10px;border-radius:999px;font-weight:600}
+    nav{margin-left:auto}
+    nav a{color:var(--muted);margin-left:12px;text-decoration:none}
+    main{margin-top:26px}
+    .card{background:#0b0b0b;padding:20px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.6);margin-bottom:18px}
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:18px}
+    label{display:block;margin-top:10px;font-weight:600;color:#ddd}
+    input[type=text],textarea,select{width:100%;padding:10px;border-radius:8px;border:1px solid #111;background:#070707;color:#eee}
+    button{background:var(--pink);color:white;border:0;padding:10px 14px;border-radius:8px;cursor:pointer}
+    a.team-link{color:var(--pink);text-decoration:none;font-weight:700}
+    footer{margin-top:30px;color:var(--muted);font-size:14px;text-align:center}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div id="logoPlace" aria-hidden="true">Logo</div>
+      <div>
+        <div class="kicker">REsnack</div>
+        <h1>Hva vi skal og hvordan vi skal hjelpe dere</h1>
+      </div>
+      <nav>
+        <a href="#om">Om oss</a>
+        <a href="#team">Teamet</a>
+        <a href="#spørreundersøkelse">Spørreundersøkelse</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="om" class="card">
+        <h2 style="background:linear-gradient(90deg,var(--pink),var(--green));-webkit-background-clip:text;background-clip:text;color:transparent">Om REsnack</h2>
+        <p>REsnack jobber for å koble overskuddsmat og folk som trenger gode, rimelige måltider. Vi samarbeider med butikker og arrangører for å redusere matsvinn og skape lokale tilbud.</p>
+      </section>
+
+      <section id="team" class="card">
+        <h2 style="background:linear-gradient(90deg,var(--pink),var(--green));-webkit-background-clip:text;background-clip:text;color:transparent">Teamet</h2>
+        <p>Klikk på et navn for å åpne en kort profil.</p>
+        <ul>
+          <li><a class="team-link" href="Mahtab.html">Mahtab Ghobadi</a></li>
+          <li><a class="team-link" href="Munira.html">Munira Awil</a></li>
+          <li><a class="team-link" href="Signe.html">Signe Bwira Kisaruko</a></li>
+          <li><a class="team-link" href="Ibtisaam.html">Ibtisaam Abdulaahi Ahmed</a></li>
+          <li><a class="team-link" href="Kanish.html">Kanish Sandrakumar</a></li>
+        </ul>
+      </section>
+
+      <section id="spørreundersøkelse" class="card">
+        <h2 style="background:linear-gradient(90deg,var(--pink),var(--green));-webkit-background-clip:text;background-clip:text;color:transparent">Spørreundersøkelse (anonym)</h2>
+        <div class="grid">
+          <div>
+            <form id="surveyForm">
+              <label for="choice">Hvor ofte trenger du måltider?</label>
+              <select id="choice" required>
+                <option value="">Velg</option>
+                <option>Daglig</option>
+                <option>Ukentlig</option>
+                <option>Månedlig</option>
+                <option>Sjelden</option>
+              </select>
+
+              <label for="allergies">Allergier / preferanser</label>
+              <input type="text" id="allergies" placeholder="f.eks. gluten, nøtter, vegetar">
+
+              <label for="other">Annet vi bør vite</label>
+              <textarea id="other" rows="4" placeholder="Kort info..."></textarea>
+
+              <div style="margin-top:12px">
+                <button type="submit">Send anonymt</button>
+                <span id="submittedMessage" style="margin-left:12px;color:var(--green);display:none">Takk — registrert</span>
+              </div>
+            </form>
+          </div>
+
+          <div>
+            <h3>Administrasjon</h3>
+            <p>Beskyttet eksport tilgjengelig via <code>?admin=true</code> i adressen. Ingen e-post eller navn lagres i undersøkelsen.</p>
+            <div id="adminArea"></div>
+            <button id="clearLocal" style="margin-top:10px;background:#333;color:#fff">Slett lokale svar</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <small>© REsnack — for spørsmål: muniraawil1@gmail.com</small>
+    </footer>
+  </div>
+
+  <script>
+    (function(){
+      const KEY = 'resnack_responses';
+      const form = document.getElementById('surveyForm');
+      const submittedMsg = document.getElementById('submittedMessage');
+      const clearBtn = document.getElementById('clearLocal');
+
+      function loadResponses(){
+        try{const s = localStorage.getItem(KEY);return s?JSON.parse(s):[];}catch(e){return []}
+      }
+      function saveResponses(arr){localStorage.setItem(KEY,JSON.stringify(arr))}
+
+      form.addEventListener('submit',e=>{
+        e.preventDefault();
+        const r = {time:new Date().toISOString(),choice:document.getElementById('choice').value,allergies:document.getElementById('allergies').value,other:document.getElementById('other').value};
+        const all = loadResponses(); all.push(r); saveResponses(all);
+        submittedMsg.style.display='inline'; setTimeout(()=>submittedMsg.style.display='none',2000); form.reset();
+      });
+
+      clearBtn.addEventListener('click', ()=>{localStorage.removeItem(KEY); alert('Lokale svar slettet');});
+
+      function escapeCsvField(v){if(v==null) return '""'; return '"'+String(v).replace(/"/g,'""')+'"'}
+      function toCSV(rows){if(!rows.length) return ''; const keys = Object.keys(rows[0]); const header = keys.map(escapeCsvField).join(',')+"\n"; const lines = rows.map(r=>keys.map(k=>escapeCsvField(r[k]||'')).join(',')); return header+lines.join('\n');}
+
+      if(new URLSearchParams(location.search).get('admin')==='true'){
+        const adminArea = document.getElementById('adminArea');
+        const div = document.createElement('div'); div.style.padding='8px'; div.style.border='1px solid #111'; div.style.borderRadius='8px';
+        const downloadBtn = document.createElement('button'); downloadBtn.textContent='Eksporter som CSV'; downloadBtn.style.display='block';
+        downloadBtn.addEventListener('click', ()=>{
+          const rows = loadResponses(); if(!rows.length){alert('Ingen svar å eksportere');return}
+          const csv = toCSV(rows); const blob = new Blob([csv],{type:'text/csv'}); const url = URL.createObjectURL(blob);
+          const a = document.createElement('a'); a.href=url; a.download='resnack_responses.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+        });
+        div.appendChild(downloadBtn); adminArea.appendChild(div);
+      }
+
+      // try to find a logo file in same folder
+      (function loadLogo(){const names=['REsnack.png','REsnack.svg','REsnack.jpg','resnack.png']; const el=document.getElementById('logoPlace'); for(const n of names){fetch(n,{method:'HEAD'}).then(r=>{if(r.ok){const img=document.createElement('img');img.src=n; el.innerHTML=''; el.appendChild(img);}}).catch(()=>{});} })();
+
+    })();
+  </script>
+</body>
+</html>

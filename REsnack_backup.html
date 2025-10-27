@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>REsnack — Bærekraftig snacks for Bjerke VGS</title>
+  <meta name="description" content="REsnack - elevbedrift for rimelige og praktiske måltider.">
+  <style>
+    :root{
+      --bg:#fbfcfd;
+      --card:#ffffff;
+      --muted:#52666b;
+      --accent-pink:#ff66a3;
+      --accent-green:#2fbd6d;
+      --max-width:1100px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:#082027;
+      font-family:Inter,system-ui,Arial,sans-serif;
+    }
+    .container{
+      max-width:var(--max-width);
+      margin:28px auto;
+      padding:24px;
+    }
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .brand{
+      display:flex;
+      gap:14px;
+      align-items:center;
+    }
+    .logo-placeholder{
+      width:88px;
+      height:88px;
+      border-radius:12px;
+      background:linear-gradient(135deg,var(--accent-pink),var(--accent-green));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      font-weight:800;
+    }
+    nav a{
+      margin-left:14px;
+      color:var(--muted);
+      text-decoration:none;
+      font-weight:600;
+    }
+    nav a:hover{
+      color:var(--accent-green);
+    }
+    .hero{
+      display:grid;
+      grid-template-columns:1fr 380px;
+      gap:22px;
+      margin-top:20px;
+    }
+    .card{
+      background:var(--card);
+      padding:18px;
+      border-radius:12px;
+      box-shadow:0 8px 30px rgba(15,23,36,0.04);
+    }
+    .kicker{
+      display:inline-block;
+      padding:6px 12px;
+      border-radius:999px;
+      background:linear-gradient(90deg,var(--accent-pink),var(--accent-green));
+      color:#fff;
+      font-weight:700;
+    }
+    .small{
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+    form label{
+      display:block;
+      margin-top:12px;
+      font-weight:700;
+    }
+    input[type=text], textarea, select{
+      width:100%;
+      padding:10px;
+      border-radius:8px;
+      border:1px solid #e6eef0;
+      margin-top:6px;
+    }
+    .btn{
+      padding:10px 12px;
+      border-radius:8px;
+      font-weight:700;
+      cursor:pointer;
+    }
+    .btn-primary{
+      background:var(--accent-green);
+      color:#021017;
+      border:none;
+    }
+    .btn-outline{
+      background:transparent;
+      border:1px solid #dfeff0;
+      color:#021017;
+    }
+    footer{
+      text-align:center;
+      margin-top:22px;
+      color:var(--muted);
+      font-size:0.9rem;
+    }
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr}
+    }
+
+    /* Rosa lenker for team */
+    #team a {
+      color: var(--accent-pink);
+      text-decoration: none;
+    }
+    #team a:hover {
+      color: var(--accent-green);
+    }
+
+      /* profile tiles */
+      .profile-tile{padding:12px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(2,12,20,0.01));transition:transform .22s ease;}
+      .profile-tile:hover{transform:translateY(-6px);box-shadow:0 18px 36px rgba(2,12,20,0.06)}
+
+      /* top badge styles */
+      .top-badges{display:flex;gap:8px;align-items:center;margin-bottom:12px}
+      .top-badges .badge{padding:6px 10px;border-radius:10px;font-weight:800}
+      .badge-accent{background:linear-gradient(90deg,var(--accent-pink),var(--accent-green));color:#021017}
+      .badge-sub{background:rgba(2,12,20,0.04);color:var(--muted)}
+
+      /* subtle floating animation for blobs */
+      @keyframes floaty{0%{transform:translateY(0) translateX(0)}50%{transform:translateY(-12px) translateX(6px)}100%{transform:translateY(0) translateX(0)}}
+      svg[style*="ellipse"]{animation:floaty 8s ease-in-out infinite}
+  </style>
+</head>
+<body>
+  <!-- Decorative floating blobs and shapes (non-interactive) -->
+  <div aria-hidden="true" style="position:fixed;inset:0;pointer-events:none;z-index:0">
+    <svg style="position:absolute;left:-5%;top:5%;width:40vmax;opacity:.12;filter:blur(30px)">
+      <defs><linearGradient id="b1" x1="0" x2="1"><stop offset="0%" stop-color="#ff66a3"/><stop offset="100%" stop-color="#2fbd6d"/></linearGradient></defs>
+      <ellipse cx="50%" cy="30%" rx="260" ry="160" fill="url(#b1)" />
+    </svg>
+    <svg style="position:absolute;right:-10%;bottom:5%;width:36vmax;opacity:.10;filter:blur(36px)">
+      <defs><linearGradient id="b2" x1="0" x2="1"><stop offset="0%" stop-color="#2fbd6d"/><stop offset="100%" stop-color="#ff66a3"/></linearGradient></defs>
+      <rect x="0" y="0" width="100%" height="100%" rx="40" fill="url(#b2)" />
+    </svg>
+  </div>
+
+  <div class="container">
+    <div class="top-badges" style="position:relative;z-index:2">
+      <div class="badge badge-accent">Nytt: Undersøkelse</div>
+      <div class="badge badge-sub">Åpner 08:00</div>
+      <div class="badge badge-sub">Lokalt samarbeid</div>
+    </div>
+    <header>
+      <div class="brand">
+        <div class="logo-placeholder" id="logoPlace">
+          <span style="font-weight:800;color:var(--accent-pink)">RE</span>
+          <span style="margin-left:6px;color:var(--accent-green);font-weight:800">snack</span>
+        </div>
+        <div>
+          <h1 style="margin:0"><span style="color:var(--accent-pink);font-weight:800">RE</span><span style="color:var(--accent-green);font-weight:800">snack</span></h1>
+          <div class="small">Bærekraftig snacks & frokost for Bjerke videregående</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#about">Om oss</a>
+        <a href="#team">Team</a>
+        <a href="#contract">Hva vi skal</a>
+        <a href="#times">Tider & drift</a>
+        <a href="#survey">Spørreundersøkelse</a>
+        <a href="#contact">Kontakt</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="card">
+          <div class="kicker">Bærekraftig • Rimelig • Tilgjengelig</div>
+          <h2><span style="color:var(--accent-pink);font-weight:800">RE</span><span style="color:var(--accent-green);font-weight:800">snack</span> — praktiske menyer for skoledagen</h2>
+          <p class="small"><span style="color:var(--accent-pink);font-weight:700">RE</span><span style="color:var(--accent-green);font-weight:700">snack</span> er en elevbedrift som tilbyr rimelige frokost- og snackalternativer til elever. Vi samarbeider med lokale leverandører for å gjøre det enklere å velge praktisk og sunt i en travel hverdag.</p>
+          <div style="margin-top:14px">
+            <button class="btn btn-primary" onclick="document.getElementById('survey').scrollIntoView({behavior:'smooth'})">
+              Fyll ut undersøkelsen
+            </button>
+          </div>
+        </div>
+
+        <aside class="card">
+          <h3 style="margin-top:0">Åpningstider</h3>
+          <div class="small">08:00–09:30 hver skoledag. Kort salgsvindu i friminutt.</div>
+        </aside>
+      </section>
+
+      <section id="about" style="margin-top:22px">
+        <h2>Hva driver vi med?</h2>
+        <div class="card small">
+          Vi gjør det enkelt for elever å kjøpe rimelig og praktisk mat på skolen. Produktene merkes tydelig med ingredienser og allergiinformasjon.
+        </div>
+      </section>
+
+      <section id="team" class="section-bg" style="margin-top:18px">
+        <div class="arrow-pill">Trykk</div>
+        <h2>Teamet</h2>
+        <div class="card">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px">
+            <div class="profile-tile"><strong><a href="Munira.html">Munira Awil</a></strong><div class="small">Daglig leder</div></div>
+            <div class="profile-tile"><strong><a href="Kanish.html">Kanish Sandrakumar</a></strong><div class="small">IT & produkt</div></div>
+            <div class="profile-tile"><strong><a href="Signe.html">Signe Bwira Kisaruko</a></strong><div class="small">Bærekraft</div></div>
+            <div class="profile-tile"><strong><a href="Ibtisaam.html">Ibtisaam Abdulaahi Ahmed</a></strong><div class="small">Markedsføring</div></div>
+            <div class="profile-tile"><strong><a href="Mahtab.html">Mahtab Ghobadi</a></strong><div class="small">Økonomi</div></div>
+            <div class="profile-tile"><strong>Alle</strong><div class="small">Salgsansvarlig</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contract" style="margin-top:18px">
+        <h2>Hva vi skal og hvordan vi skal hjelpe dere</h2>
+        <div class="card small">
+          REsnack tilbyr praktiske og prisvennlige alternativer, tydelig merket for allergier. Teamets interne kontrakt er privat — denne siden viser det som er relevant for elever og samarbeidspartnere.
+        </div>
+      </section>
+
+      <section id="times" style="margin-top:18px">
+        <h2>Tider og drift</h2>
+        <div class="card small">
+          Daglig drift: 08:00–09:30. Pakketeam møter 07:30. Vi sørger for trygg merking av ingredienser.
+        </div>
+      </section>
+
+      <section id="survey" style="margin-top:18px">
+        <h2>Spørreundersøkelse</h2>
+        <div class="card">
+          <p class="small">Undersøkelsen er anonym. Vi samler ikke navn eller e-post. Svar lagres lokalt og kan eksporteres av daglig leder via admin-visningen.</p>
+          <form id="surveyForm">
+            <label for="choice">Ønsker du individuelle snacks eller en pakke?</label>
+            <select id="choice" name="choice">
+              <option value="individuell">Individuell snacks</option>
+              <option value="pakke">Pakke</option>
+              <option value="begge">Begge deler</option>
+            </select>
+            <label for="allergies">Allergier / intoleranser</label>
+            <input id="allergies" name="allergies" type="text" placeholder="F.eks. peanøtter, laktose">
+            <label for="drinks">Ønsket drikke</label>
+            <input id="drinks" name="drinks" type="text" placeholder="F.eks. vann, juice">
+            <label for="other">Andre kommentarer</label>
+            <textarea id="other" name="other" rows="4" placeholder="Skriv her..."></textarea>
+            <div style="margin-top:12px;display:flex;gap:8px">
+              <button type="submit" class="btn btn-primary">Send svar</button>
+              <button type="button" id="clearLocal" class="btn btn-outline">Tøm lokale svar</button>
+            </div>
+          </form>
+          <div id="submittedMessage" style="display:none;margin-top:12px" class="small">Takk — svaret er mottatt.</div>
+        </div>
+      </section>
+
+      <section id="contact" class="section-bg" style="margin-top:18px">
+        <h2>Kontakt</h2>
+        <div class="card small">
+          <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+            <div style="display:flex;gap:8px;align-items:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 5h18v14H3V5z" stroke="#2fbd6d" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg><a href="mailto:resnack@eksempel.no">resnack@eksempel.no</a></div>
+            <div style="display:flex;gap:8px;align-items:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 16.92V21a1 1 0 0 1-1.09 1 19.86 19.86 0 0 1-8.63-3.35A19.5 19.5 0 0 1 3.35 9.72 19.86 19.86 0 0 1 0 1.09 1 1 0 0 1 1 0h4.09a1 1 0 0 1 1 .75c.12.63.33 1.25.61 1.83a1 1 0 0 1-.24 1.06L5.7 6.7a16 16 0 0 0 8.6 8.6l1.06-1.06a1 1 0 0 1 1.06-.24c.58.28 1.2.49 1.83.61a1 1 0 0 1 .75 1V22z" stroke="#ff66a3" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/></svg><span>+47 91283630</span></div>
+          </div>
+          <div style="margin-top:8px;color:var(--muted)">Daglig leder (Munira) kan eksportere svar fra admin-visningen.</div>
+        </div>
+      </section>
+    </main>
+
+  <footer>© <span style="color:var(--accent-pink);font-weight:800">RE</span><span style="color:var(--accent-green);font-weight:800">snack</span> — Elevbedrift ved Bjerke videregående</footer>
+  </div>
+
+  <script>
+    (function(){
+      const KEY = 'resnack_responses';
+      const form = document.getElementById('surveyForm');
+      const submitted = document.getElementById('submittedMessage');
+      const clearBtn = document.getElementById('clearLocal');
+
+      function loadResponses(){ try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch(e){ return []; } }
+      function saveResponse(r){ const arr = loadResponses(); arr.push(r); localStorage.setItem(KEY, JSON.stringify(arr)); }
+
+      form.addEventListener('submit', e=>{
+        e.preventDefault();
+        const data={ time:new Date().toISOString(), choice:form.choice.value, allergies:form.allergies.value, drinks:form.drinks.value, other:form.other.value };
+        saveResponse(data);
+        submitted.style.display='block';
+        setTimeout(()=>submitted.style.display='none',2200);
+        form.reset();
+      });
+
+      clearBtn.addEventListener('click', ()=>{ localStorage.removeItem(KEY); alert('Lokale svar fjernet'); });
+
+      // Automatisk logolasting
+      (function(){
+        const names=['REsnack.png','REsnack.svg','REsnack.jpg','resnack.png'];
+        const container=document.getElementById('logoPlace');
+        names.forEach(n=>{
+          const img=new Image();
+          img.src=n;
+          img.onload=function(){
+            container.innerHTML='';
+            img.alt='REsnack logo';
+            img.style.maxWidth='84px';
+            img.style.maxHeight='84px';
+            img.style.borderRadius='8px';
+            container.appendChild(img);
+          };
+        });
+      })();
+    })();
+  </script>
+</body>
+</html>
+<!-- Backup of REsnack.html before cleanup -->
+<!-- Created automatically by assistant -->
