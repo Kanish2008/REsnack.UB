@@ -527,12 +527,143 @@
       color: var(--accent-green);
     }
 
+
+
+    /* Veien videre-seksjon */
+.veien-videre {
+  text-align: center;
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #fdf0ff 0%, #e8f1ff 100%);
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.veien-videre::before {
+  content: "";
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle at center, rgba(255, 182, 244, 0.4), transparent 70%);
+  z-index: 0;
+}
+
+.veien-videre::after {
+  content: "";
+  position: absolute;
+  bottom: -60px;
+  left: -60px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle at center, rgba(132, 203, 255, 0.4), transparent 70%);
+  z-index: 0;
+}
+
+.veien-videre h2 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 50px;
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(90deg, #ff6ec4, #7873f5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.progress-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 3px;
+  background: linear-gradient(90deg, #ff6ec4, #7873f5);
+  z-index: 1;
+  transform: translateY(-50%);
+  opacity: 0.5;
+}
+
+.steg-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  position: relative;
+  flex-wrap: wrap;
+  z-index: 2;
+}
+
+.steg {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 18px;
+  padding: 35px 25px;
+  width: 280px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  position: relative;
+  transition: all 0.35s ease;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.steg:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(120, 115, 245, 0.2);
+}
+
+.nummer {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff6ec4, #7873f5);
+  color: white;
+  font-weight: 700;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 18px;
+  box-shadow: 0 0 12px rgba(255, 110, 196, 0.6);
+}
+
+.steg h3 {
+  color: #0073ff;
+  font-weight: 700;
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+}
+
+.steg p {
+  color: #333;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* --- Responsiv tilpasning --- */
+@media (max-width: 768px) {
+  .steg-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .progress-line {
+    display: none;
+  }
+
+  .steg {
+    width: 90%;
+    margin-bottom: 30px;
+  }
+}
+
+
     .hero-text {
       font-size: 1.2rem;
       color: var(--muted);
       margin: 20px 0 30px;
       opacity: 0.9;
     }
+
 
     /* Hero */
     .hero {
@@ -971,7 +1102,7 @@
         <p>YumBite er elevbedriften som gjør skoledagen din enklere og sunnere. Vi tilbyr:</p>
         <ul class="feature-list">
           <li><strong>Rask service:</strong> Ingen mer lange køer - få maten din på 1-2 minutter</li>
-          <li><strong>Tidlig tilgang:</strong> Åpent fra 08:00-09:30 tirsdager og onsdager</li>
+          <li><strong>Tidlig tilgang:</strong> Åpent fra 08:00-09:30 og 11:30-11:50 på tirsdager og torsdager</li>
           <li><strong>Rimelige priser:</strong> Sunn mat som passer studentbudsjettet</li>
           <li><strong>Bærekraftige valg:</strong> Miljøvennlige produkter og emballasje</li>
         </ul>
@@ -1000,32 +1131,30 @@
       </div>
     </section>
 
-    <section id="timeline">
-      <h2>Veien videre</h2>
-      <div class="timeline-wrapper">
-        <div class="timeline-step">
-          <div class="step">1</div>
-          <div class="step-content">
-            <h3>Spørreundersøkelse</h3>
-            <p>Vi samler inn deres ønsker og preferanser</p>
-          </div>
-        </div>
-        <div class="timeline-step">
-          <div class="step">2</div>
-          <div class="step-content">
-            <h3>Produktutvalg</h3>
-            <p>Vi velger produkter basert på deres tilbakemeldinger</p>
-          </div>
-        </div>
-        <div class="timeline-step">
-          <div class="step">3</div>
-          <div class="step-content">
-            <h3>Åpning</h3>
-            <p>YumBite starter salg på Bjerke VGS</p>
-          </div>
-        </div>
-      </div>
-    </section>
+  <section class="veien-videre">
+  <h2>Veien videre</h2>
+  <div class="progress-line"></div>
+  <div class="steg-container">
+    <div class="steg">
+      <div class="nummer">1</div>
+      <h3>Spørreundersøkelse</h3>
+      <p>Vi samler inn deres <em>ønsker</em> og preferanser</p>
+    </div>
+
+    <div class="steg">
+      <div class="nummer">2</div>
+      <h3>Produktutvalg</h3>
+      <p>Vi velger produkter basert på deres tilbakemeldinger</p>
+    </div>
+
+    <div class="steg">
+      <div class="nummer">3</div>
+      <h3>Åpning</h3>
+      <p>YumBite starter salg på Bjerke VGS</p>
+    </div>
+  </div>
+</section>
+
 
     <section id="team">
       <h2>Teamet vårt</h2>
@@ -1132,6 +1261,8 @@
             <ul class="time-list">
               <li><strong>Tirsdag:</strong> 08:00 - 09:30</li>
               <li><strong>Torsdag:</strong> 08:00 - 09:30</li>
+              <li><strong>Tirsdag:</strong> 11:30 - 11:50</li>
+              <li><strong>Torsdag:</strong> 11:30 - 11:50</li>
             </ul>
             <div class="coming-soon-overlay">ÅPNER SNART</div>
             <div class="police-tape-bottom"></div>
@@ -1321,3 +1452,4 @@
   </script>
 </body>
 </html>
+
