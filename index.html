@@ -5,17 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>YumBite — Bærekraftig snacks for Bjerke VGS</title>
   <meta name="description" content="YumBite - elevbedrift for rimelige og praktiske måltider.">
+  <!-- Optional: paste your Firebase config here to enable a global visitor counter.
+       Replace the REPLACE_ME values with your project's config and make sure
+       your Realtime Database rules allow writes for demo/testing. -->
+  <script>
+    window.FIREBASE_CONFIG = {
+      apiKey: "REPLACE_ME",
+      authDomain: "REPLACE_ME",
+      databaseURL: "https://REPLACE_ME.firebaseio.com",
+      projectId: "REPLACE_ME",
+      storageBucket: "REPLACE_ME.appspot.com",
+      messagingSenderId: "REPLACE_ME",
+      appId: "REPLACE_ME"
+    };
+  </script>
   <style>
     :root {
+      /* YumBite brand palette */
+  /* NOTE: swapped per request — orange uses logo-blue, green uses logo-pink */
+  --yumbite-orange: #2D8CFF; /* logo blue (replaces previous orange) */
+  --yumbite-yellow: #ffa726; /* secondary brand yellow (kept) */
+  --yumbite-green: #ff66a3;  /* logo pink (replaces previous green) */
+  --yumbite-gradient: linear-gradient(90deg,var(--yumbite-orange),var(--yumbite-yellow));
+
+      /* Legacy variable names (mapped to brand colors so existing CSS picks them up) */
       --bg: #fefefe;
       --muted: #52666b;
-      --accent-pink: #ff66a3;
-      --accent-green: #2D8CFF;
+  --accent-pink: var(--yumbite-orange); /* now maps to logo-blue */
+  --accent-green: var(--yumbite-green); /* now maps to logo-pink */
       --accent-beige: #f5e6d3;
       --accent-beige-light: rgba(245, 230, 211, 0.6);
       --accent-beige-transparent: rgba(245, 230, 211, 0.2);
-      --accent-pink-light: rgba(255, 102, 163, 0.1);
-      --accent-green-light: rgba(45, 140, 255, 0.1);
+  --accent-pink-light: rgba(45,140,255,0.10); /* light tint of logo-blue */
+  --accent-green-light: rgba(255,102,163,0.10); /* light tint of logo-pink */
+
       --radius: 12px;
       --max-width: 1200px;
       --gap: 24px;
@@ -38,8 +61,9 @@
 
     .corner-decoration {
       position: fixed;
-      width: 300px;
-      height: 300px;
+      /* responsive size to avoid overflow on narrow viewports */
+      width: min(300px, 40vw);
+      height: min(300px, 40vw);
       pointer-events: none;
       z-index: 0;
     }
@@ -57,17 +81,17 @@
     }
 
     .top-left-decoration::before {
-      width: 200px;
-      height: 200px;
+      width: min(200px, 30vw);
+      height: min(200px, 30vw);
       background: linear-gradient(135deg, var(--accent-pink), transparent);
       animation: float 8s infinite ease-in-out;
     }
 
     .top-left-decoration::after {
-      width: 150px;
-      height: 150px;
-      top: 100px;
-      left: 80px;
+      width: min(150px, 24vw);
+      height: min(150px, 24vw);
+      top: min(100px, 18vw);
+      left: min(80px, 10vw);
       background: linear-gradient(135deg, var(--accent-green), transparent);
       animation: floatReverse 10s infinite ease-in-out;
     }
@@ -123,8 +147,8 @@
 
 
         .sticker {
-          width: 48px;
-          height: 48px;
+          width: min(48px, 9vw);
+          height: min(48px, 9vw);
           display: inline-block;
           transform-origin: center;
           animation: floatSticker 3s ease-in-out infinite;
@@ -154,18 +178,18 @@
     }
 
     .top-right-decoration::before {
-      width: 180px;
-      height: 180px;
+      width: min(180px, 28vw);
+      height: min(180px, 28vw);
       right: 0;
       background: linear-gradient(-135deg, var(--accent-green), transparent);
       animation: floatReverse 9s infinite ease-in-out;
     }
 
     .top-right-decoration::after {
-      width: 140px;
-      height: 140px;
-      top: 80px;
-      right: 90px;
+      width: min(140px, 24vw);
+      height: min(140px, 24vw);
+      top: min(80px, 14vw);
+      right: min(90px, 12vw);
       background: linear-gradient(-135deg, var(--accent-pink), transparent);
       animation: float 11s infinite ease-in-out;
     }
@@ -188,8 +212,8 @@
     }
 
     .shape1 { 
-      width: 50px; 
-      height: 50px;
+      width: min(50px, 9vw); 
+      height: min(50px, 9vw);
       left: 15%;
       top: 25%;
       background: var(--accent-pink-light);
@@ -197,8 +221,8 @@
     }
 
     .shape2 {
-      width: 35px;
-      height: 35px;
+      width: min(35px, 7vw);
+      height: min(35px, 7vw);
       right: 18%;
       top: 40%;
       background: var(--accent-green-light);
@@ -206,8 +230,8 @@
     }
 
     .shape3 {
-      width: 45px;
-      height: 45px;
+      width: min(45px, 8vw);
+      height: min(45px, 8vw);
       left: 25%;
       bottom: 20%;
       background: var(--accent-pink-light);
@@ -215,8 +239,8 @@
     }
 
     .shape4 {
-      width: 40px;
-      height: 40px;
+      width: min(40px, 8vw);
+      height: min(40px, 8vw);
       right: 25%;
       bottom: 25%;
       background: var(--accent-green-light);
@@ -234,7 +258,26 @@
         radial-gradient(circle at 80% 80%, var(--accent-green-light) 0%, transparent 50%),
         radial-gradient(circle at 50% 50%, var(--accent-beige) 0%, var(--accent-beige-light) 100%);
       background-attachment: fixed;
-      overflow-x: hidden;
+      overflow-x: hidden; /* prevent horizontal scrolling */
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-y; /* prefer vertical scrolling on mobile */
+    }
+    /* Make media and large containers adapt to viewport width to avoid side scrolling */
+  html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
+    img, iframe, .product-photo, .logo img { max-width: 100%; height: auto; display: block; }
+    .container, .card, .benefits-grid, .products-grid, .team-grid { box-sizing: border-box; max-width: 100%; }
+  /* Aggressive clamp: ensure no child exceeds its container width (prevents horizontal overflow) */
+  .container * { max-width: 100%; box-sizing: border-box; }
+    /* Ensure grid columns collapse on small screens and do not create horizontal overflow */
+    .benefits-grid, .products-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+    @media (max-width: 520px) {
+      .hero { padding: 40px 16px; }
+      .container { padding: 16px; }
+      .benefits-grid, .products-grid { grid-template-columns: 1fr; }
+      /* Hide large decorative elements that can cause overflow or visual clutter on small screens */
+      .corner-decoration, .floating-shapes { display: none; }
+      /* background-attachment: fixed can cause mobile rendering issues; switch to scroll */
+      body { background-attachment: scroll; }
     }
     a { text-decoration:none; color:inherit; position: relative; }
     a:hover { color:var(--accent-green); }
@@ -297,6 +340,9 @@
       padding: 8px; 
       margin: 0 auto;
     }
+  /* Accessibility: skip link visible on focus */
+  .skip-link{ position:fixed; left:12px; top:12px; background:#021017; color:#fff; padding:8px 12px; border-radius:8px; z-index:2000; transform:translateY(-120%); transition:transform 0.18s ease; }
+  .skip-link:focus{ transform:translateY(0%); outline:3px solid rgba(255,255,255,0.12); }
     .tagline { 
       margin-top: 12px; 
       font-weight: 600; 
@@ -398,6 +444,7 @@
       transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
       border: 1px solid var(--accent-beige);
       position: relative;
+      z-index: 1; /* ensure card content sits above decorative pseudo-elements */
       overflow: hidden;
     }
     .card::before {
@@ -413,6 +460,7 @@
         var(--accent-green-light)
       );
       opacity: 0;
+      pointer-events: none; /* allow clicks through decorative overlay */
       transition: opacity 0.3s ease;
     }
     .card:hover { 
@@ -545,8 +593,8 @@
   position: absolute;
   top: -50px;
   right: -50px;
-  width: 300px;
-  height: 300px;
+  width: min(300px, 40vw);
+  height: min(300px, 40vw);
   background: radial-gradient(circle at center, rgba(255, 182, 244, 0.4), transparent 70%);
   z-index: 0;
 }
@@ -556,8 +604,8 @@
   position: absolute;
   bottom: -60px;
   left: -60px;
-  width: 300px;
-  height: 300px;
+  width: min(300px, 40vw);
+  height: min(300px, 40vw);
   background: radial-gradient(circle at center, rgba(132, 203, 255, 0.4), transparent 70%);
   z-index: 0;
 }
@@ -570,7 +618,9 @@
   z-index: 2;
   background: linear-gradient(90deg, #ff6ec4, #7873f5);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 .progress-line {
@@ -599,7 +649,7 @@
   backdrop-filter: blur(10px);
   border-radius: 18px;
   padding: 35px 25px;
-  width: 280px;
+  width: min(280px, 90%);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   position: relative;
   transition: all 0.35s ease;
@@ -612,8 +662,8 @@
 }
 
 .nummer {
-  width: 48px;
-  height: 48px;
+  width: min(48px, 12vw);
+  height: min(48px, 12vw);
   border-radius: 50%;
   background: linear-gradient(135deg, #ff6ec4, #7873f5);
   color: white;
@@ -712,7 +762,14 @@
       100% { transform: rotate(360deg); }
     }
 
-    .hero h1 { font-size:2rem; margin-bottom:24px; color:#082027; max-width:700px; z-index:1; position:relative; }
+  .hero h1 { font-size:2.6rem; margin-bottom:14px; color:transparent; max-width:760px; z-index:1; position:relative; font-weight:900; line-height:1.05; background: var(--yumbite-gradient); -webkit-background-clip: text; background-clip: text; text-shadow: 0 6px 18px rgba(0,0,0,0.06); }
+  .hero-sub { font-size:1.05rem; margin-top:6px; color: var(--muted); font-weight:700; }
+    @keyframes heroPop {
+      0% { opacity: 0; transform: translateY(10px) scale(0.98); }
+      60% { opacity: 1; transform: translateY(-6px) scale(1.02); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .hero h1, .hero-sub { animation: heroPop 900ms cubic-bezier(.2,.9,.25,1) both; }
     .btn-primary {
       background:linear-gradient(90deg,var(--accent-green),var(--accent-pink));
       color:#021017;
@@ -762,8 +819,10 @@
       display:block;
       margin-bottom:4px;
       background:linear-gradient(90deg,var(--accent-green),var(--accent-pink));
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
       cursor:pointer;
       position:relative;
       z-index:2;
@@ -1023,8 +1082,8 @@
     }
 
     .member-photo {
-      width: 84px;
-      height: 84px;
+      width: min(84px, 20vw);
+      height: min(84px, 20vw);
       border-radius: 12px;
       object-fit: cover;
       background: linear-gradient(135deg, var(--accent-pink-light), var(--accent-green-light));
@@ -1051,16 +1110,110 @@
 
     @media (max-width: 600px) {
       .team-grid { grid-template-columns: 1fr; }
-      .member-photo { width: 72px; height: 72px; }
+      .member-photo { width: min(72px, 22vw); height: min(72px, 22vw); }
     }
 
     /* Responsive */
     @media(max-width:768px){
       .team-row-1, .team-row-2 { flex-direction:column; gap:12px; }
     }
+    /* QR: floating corner button + modal styles */
+    .qr-show-btn {
+      position: fixed;
+      right: 12px;
+      bottom: 12px;
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+      z-index: 1200;
+      cursor: pointer;
+    }
+    .qr-show-btn img{ width:34px; height:34px; display:block; }
+  /* QR explanatory badge */
+  #qr-badge{ position: fixed; right:12px; bottom:72px; z-index:1255; background: rgba(0,0,0,0.78); color:#fff; padding:8px 10px; border-radius:10px; font-size:13px; max-width:220px; text-align:center; box-shadow:0 8px 20px rgba(0,0,0,0.25);} 
+  @media(max-width:480px){ #qr-badge{ right:10px; bottom:92px; font-size:12px; } }
+    .qr-modal { position: fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:1250; }
+    .qr-modal.visible { display:flex; }
+    .qr-modal .backdrop{ position:absolute; inset:0; background: rgba(0,0,0,0.5); }
+    .qr-modal .panel{ position:relative; z-index:2; max-width:420px; width:92%; background:#fff; border-radius:12px; padding:16px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.25); }
+    .qr-modal .panel img{ width:100%; height:auto; border-radius:8px; }
+    .qr-modal .close-btn{ position:absolute; top:8px; right:8px; border:none; background:transparent; font-size:20px; cursor:pointer; }
+    @media(max-width:480px){ .qr-show-btn{ width:48px; height:48px; right:8px; bottom:8px; } }
+
+    /* Back to top button */
+    #back-to-top {
+      position: fixed;
+      right: 12px;
+      bottom: 80px;
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      background: white;
+      display: none;
+      align-items:center;
+      justify-content:center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+      z-index: 1300;
+      cursor: pointer;
+      font-weight:700;
+    }
+
+    /* Dark mode styles (toggle by adding .dark on body) */
+    body.dark {
+      background: #071022 !important;
+      color: #e6f8ff !important;
+      /* tweak muted text for better contrast in dark mode */
+      --muted: #bfe8ff;
+    }
+    body.dark .container, body.dark .card, body.dark .modal-card, body.dark .panel {
+      background: #0b1724 !important;
+      color: #e6f8ff !important;
+      border-color: rgba(255,255,255,0.06) !important;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6) !important;
+    }
+    /* make primary buttons solid blue with white text in dark mode for clear contrast */
+    body.dark .btn-primary { background: linear-gradient(90deg,var(--yumbite-orange),var(--yumbite-orange)); color:#fff; }
+    body.dark .btn-secondary { background: transparent; border-color: rgba(255,255,255,0.12); color:#e6f8ff; }
+    /* Product cards and cart */
+  .products-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap:16px; margin-top:18px; }
+  /* Waitlist / supplier form styles */
+  .waitlist, .supplier{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  .waitlist input, .supplier input, .supplier textarea{ padding:8px 10px; border-radius:8px; border:1px solid rgba(0,0,0,0.08); min-width:200px; }
+  .supplier textarea{ min-height:72px; resize:vertical; }
+  .card .small-note{ color:var(--muted); font-size:0.95rem; margin-top:8px; }
+  .product-card { background: linear-gradient(135deg,#fff,#f7fff7); padding:12px; border-radius:12px; text-align:center; box-shadow:0 8px 20px rgba(0,0,0,0.06); border:1px solid rgba(0,0,0,0.04); }
+  .product-photo { width:100%; height:140px; object-fit:cover; border-radius:8px; margin-bottom:8px; }
+  .product-name { font-weight:800; color:var(--yumbite-green); margin-bottom:6px; }
+  .product-price { font-weight:700; color:var(--muted); margin-bottom:8px; }
+  .product-actions { display:flex; gap:8px; justify-content:center; }
+  /* cart CSS removed - cart feature deprecated */
+  .toast { position:fixed; left:50%; transform:translateX(-50%); bottom:24px; background:rgba(0,0,0,0.85); color:white; padding:10px 14px; border-radius:10px; display:none; z-index:1500; }
+  /* Pitch button and modals tweaks */
+  .qr-modal { position: fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:1250; }
+  .qr-modal.visible { display:flex; }
+  .qr-modal .backdrop{ position:absolute; inset:0; background: rgba(0,0,0,0.5); }
+  .qr-modal .panel{ position:relative; z-index:2; max-width:720px; width:92%; background:#fff; border-radius:12px; padding:16px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.25); }
+  .qr-modal .close-btn{ position:absolute; top:8px; right:8px; border:none; background:transparent; font-size:20px; cursor:pointer; }
+  #pitch-cta { position: fixed; left: 12px; bottom: 12px; z-index:1600; background: linear-gradient(90deg,var(--yumbite-orange),var(--yumbite-yellow)); color: #fff; border:none; padding:12px 14px; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.18); cursor:pointer; font-weight:800; }
+  @media(max-width:480px){ #pitch-cta{ left:8px; bottom:72px; } }
+  .counter { font-size:1.6rem; font-weight:900; color:var(--yumbite-orange); }
+  /* mobile tweaks: compress team grid and ensure CTA doesn't overlap QR */
+  @media(max-width:600px){
+    .team-grid { display:flex; flex-direction:column; gap:12px; }
+    .team-card { display:flex; gap:12px; align-items:center; }
+    .team-card .member-photo{ width:72px; height:72px; }
+    /* ensure pitch CTA sits above floating controls on smallest screens */
+    #pitch-cta{ bottom:96px; left:8px; }
+  }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#about">Hopp til innhold</a>
   <!-- Corner decorations -->
   <div class="corner-decoration top-left-decoration"></div>
   <div class="corner-decoration top-right-decoration"></div>
@@ -1086,8 +1239,43 @@
     </nav>
   </header>
 
+  <!-- Dark mode toggle (small) -->
+  <div style="position:fixed; top:14px; right:80px; z-index:1400;">
+    <button id="dark-toggle" class="btn-secondary" aria-label="Bytt mellom lys og mørk tema">🌙</button>
+  </div>
+  <!-- Cart removed per request -->
+
+  <!-- Floating QR button so students can show the QR to others -->
+  <button id="qr-show" class="qr-show-btn" aria-label="Vis QR-kode">
+    <img src="QR.png" alt="QR" />
+  </button>
+  <div id="qr-badge">Skann QR‑koden for å åpne undersøkelsen — ingen Microsoft‑pålogging kreves.</div>
+
+  <div id="qr-modal" class="qr-modal" aria-hidden="true" role="dialog">
+    <div class="backdrop" id="qr-backdrop"></div>
+    <div class="panel">
+      <button class="close-btn" id="qr-close" aria-label="Lukk">✕</button>
+      <h3 style="margin-top:0">Skann for å åpne YumBite</h3>
+      <img src="QR.png" alt="QR-kode for YumBite" />
+      <p style="margin-top:8px;color:var(--muted);font-size:0.95rem;">Vis denne QR-en til medelever for å åpne nettsiden.</p>
+      <div style="margin-top:10px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap;">
+        <a id="qr-open-link" class="btn-secondary" target="_blank" rel="noopener">Åpne i ny fane</a>
+        <button id="qr-copy" class="btn-primary">Kopier lenke</button>
+      </div>
+    </div>
+  </div>
+
+  <button id="back-to-top" title="Til toppen">↑</button>
+
+  <button id="pitch-cta">Pitch & Kit</button>
+
+  <!-- Cart modal removed -->
+
+  <div id="toast" class="toast"></div>
+
   <section class="hero">
     <h1>Energi for dagen – Smart frokost og snacks for travle elever</h1>
+    <p class="hero-sub">Velkommen! Få en rask, sunn og energi‑fylt start på dagen — vi gjør det enkelt og smakfullt.</p>
     <p class="hero-text">Spar tid, spis bedre, start dagen riktig!</p>
     <button class="btn-primary" onclick="document.getElementById('survey').scrollIntoView({behavior:'smooth'})">
       Fortell oss hva du vil ha
@@ -1095,8 +1283,8 @@
   </section>
 
   <div class="container">
-    <section id="about">
-      <h2>Hva er YumBite?</h2>
+    <section id="about" role="region" aria-labelledby="about-h2">
+      <h2 id="about-h2">Hva er YumBite?</h2>
       <div class="card">
         <h3>Din nye frokost- og snacksløsning på Bjerke VGS</h3>
         <p>YumBite er elevbedriften som gjør skoledagen din enklere og sunnere. Vi tilbyr:</p>
@@ -1109,8 +1297,10 @@
       </div>
     </section>
 
-    <section id="why-yumbite">
-      <h2>Hvorfor YumBite?</h2>
+    <!-- Flyttet: Hvorfor YumBite, Veien videre og Teamet (plassert rett under 'Hva er YumBite?') -->
+    
+    <section id="why-yumbite" role="region" aria-labelledby="why-h2">
+      <h2 id="why-h2">Hvorfor YumBite?</h2>
       <div class="benefits-grid">
         <div class="benefit-card">
           <h3>🕒 Spar verdifull tid</h3>
@@ -1131,8 +1321,8 @@
       </div>
     </section>
 
-  <section class="veien-videre">
-  <h2>Veien videre</h2>
+  <section class="veien-videre" role="region" aria-labelledby="veien-h2">
+  <h2 id="veien-h2">Veien videre</h2>
   <div class="progress-line"></div>
   <div class="steg-container">
     <div class="steg">
@@ -1156,8 +1346,8 @@
 </section>
 
 
-    <section id="team">
-      <h2>Teamet vårt</h2>
+    <section id="team" role="region" aria-labelledby="team-h2">
+      <h2 id="team-h2">Teamet vårt</h2>
       <p class="small">Møt teamet bak YumBite — vi er elever som digger god mat og god stemning.</p>
       <div class="team-grid">
     <div class="team-card" data-name="Munira Awil" data-role="Daglig leder" data-bio="Leder og problemløser — brenner for gode morgenvaner og effektiv servering." data-img="assets/munira.jpg" data-contact="muniraawil1@gmail.com" data-instagram="https://instagram.com/yumbite.ub" data-tiktok="https://www.tiktok.com/@yumbite.ub">
@@ -1215,6 +1405,136 @@
         <a class="btn-secondary" href="#contact">Møt oss & kom med ideer</a>
       </div>
     </section>
+
+    <section id="products">
+      <h2>Utvalgte produkter</h2>
+      <div class="card">
+        <p>Vi har for øyeblikket ingen produkter i salg — vi kontakter matkjeder for å få på plass leverandører. Vil du bli varslet når vi åpner?</p>
+        <div class="small-note">Skriv inn e-post for å bli med på ventelisten. Vi deler ikke e-poster uten samtykke.</div>
+        <div style="margin-top:10px;" class="waitlist">
+          <input id="waitlist-email" type="email" placeholder="Din e-post" aria-label="E-post for venteliste">
+          <button id="waitlist-join" class="btn-primary">Bli med på venteliste</button>
+          <button id="export-waitlist" class="btn-secondary" title="Kopier venteliste">Kopier venteliste</button>
+          <button id="show-demo" class="btn-secondary" title="Vis demo-produkter">Vis demo-produkter</button>
+        </div>
+
+        <hr style="margin:12px 0;" />
+        <h3>Er du leverandør eller representant for en matkjede?</h3>
+        <p class="small-note">Interessert i å levere til YumBite? Fyll inn kort info og kontakt oss raskt via e-post.</p>
+        <div style="margin-top:8px;" class="supplier">
+          <input id="supplier-name" placeholder="Firma / navn" aria-label="Leverandør navn">
+          <input id="supplier-email" placeholder="E-post" aria-label="Leverandør e-post">
+          <textarea id="supplier-message" placeholder="Kort om tilbudet" aria-label="Melding til YumBite"></textarea>
+        </div>
+        <div style="margin-top:8px; display:flex; gap:8px;">
+          <button id="supplier-contact" class="btn-primary">Kontakt via e-post</button>
+          <button id="supplier-copy" class="btn-secondary">Kopier e-post</button>
+        </div>
+      </div>
+
+      <!-- Hidden demo products (vises kun når dere vil presentere) -->
+      <div id="demo-products" style="display:none; margin-top:12px;">
+        <div class="products-grid">
+          <div class="product-card" data-id="1">
+            <img class="product-photo" src="assets/breakfast1.jpg" alt="Frokostpakke">
+            <div class="product-name">Frokostpakke (demo)</div>
+            <div class="product-price">NOK 35</div>
+            <div class="product-actions"><button class="btn-secondary interest-btn" data-id="1">Vis interesse</button></div>
+          </div>
+          <div class="product-card" data-id="2">
+            <img class="product-photo" src="assets/snack1.jpg" alt="Proteinbar">
+            <div class="product-name">Proteinbar (demo)</div>
+            <div class="product-price">NOK 20</div>
+            <div class="product-actions"><button class="btn-secondary interest-btn" data-id="2">Vis interesse</button></div>
+          </div>
+          <div class="product-card" data-id="3">
+            <img class="product-photo" src="assets/coffee.jpg" alt="Kaffe">
+            <div class="product-name">Kaffe (stor) (demo)</div>
+            <div class="product-price">NOK 25</div>
+            <div class="product-actions"><button class="btn-secondary interest-btn" data-id="3">Vis interesse</button></div>
+          </div>
+        </div>
+      </div>
+        <!-- Winning toolkit: pitch, press kit and judge summary -->
+        <section id="winning-toolkit">
+          <div class="card" style="margin-top:18px;">
+            <h3>Vårt konkurranse‑kit</h3>
+            <p class="small-note">Alt du trenger for å imponere dommere: en skarp pitch, pressemelding og korte nøkkeltall.</p>
+            <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+              <button id="open-pitch" class="btn-primary">Åpne pitch</button>
+              <button id="open-press" class="btn-secondary">Åpne pressemelding</button>
+              <button id="copy-judge" class="btn-secondary">Kopier dommer‑sammendrag</button>
+              <button id="download-pitch" class="btn-secondary">Last ned pitch (.txt)</button>
+            </div>
+            <div class="counters" style="margin-top:14px; display:flex; gap:24px; align-items:center;">
+              <div style="text-align:center;"><div id="counter-students" class="counter" data-target="0">0</div><div class="small">Studenter nådd</div></div>
+              <div style="text-align:center;"><div id="counter-suppliers" class="counter" data-target="8">0</div><div class="small">Leverandører kontaktet</div></div>
+              <div style="text-align:center;"><div id="counter-days" class="counter" data-target="14">0</div><div class="small">Dager til åpning</div></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="for-judges">
+          <div class="card" style="margin-top:18px;">
+            <h3>For dommere — kort oversikt</h3>
+            <p class="small-note">En kompakt oppsummering som gir dommere de viktigste fakta på ett ark.</p>
+            <ul class="feature-list" style="margin-top:12px; text-align:left;">
+              <li><strong>Problem:</strong> Elever har begrenset tid til frokost og lange kantinekøer.</li>
+              <li><strong>Løsning:</strong> YumBite tilbyr rask, rimelig og bærekraftig mat på skolen.</li>
+              <li><strong>Forretningsmodell:</strong> Salg per enhet + lokale leverandørsamarbeid.</li>
+              <li><strong>Sporbar bærekraft:</strong> Prioriterer gjenbruk/komposterbar emballasje og kort transport.</li>
+              <li><strong>Traction:</strong> Lokale demoer, venteliste og elevinteresse (se tall ovenfor).</li>
+            </ul>
+            <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+              <button id="download-judge-onepager" class="btn-primary">Last ned dommer‑onepager</button>
+              <button id="copy-judge" class="btn-secondary">Kopier dommer‑sammendrag</button>
+            </div>
+          </div>
+        </section>
+
+        <section id="competition-kit">
+          <div class="card" style="margin-top:18px;">
+            <h3>Konkurransepakke — Ungt Entreprenørskap</h3>
+            <p class="small-note">Denne seksjonen dekker kjernekravene: idé, innovasjon, forretningsmodell, økonomi, bærekraft, marked, risiko og team.</p>
+            <div class="benefits-grid" style="margin-top:12px;">
+              <div class="benefit-card">
+                <h4>Forretningsmodell</h4>
+                <p>Primær inntekt: salg per enhet. Sekundær inntekt: abonnement for faste leveranser til klasser/avdelinger.</p>
+                <ul style="margin-top:8px; text-align:left;">
+                  <li>Gjennomsnittspris per enhet: NOK 25</li>
+                  <li>Estimert daglig salg (pilot): 40 enheter</li>
+                  <li>Månedlig inntekt (est): 25 * 40 * 20 skoledager = NOK 20 000</li>
+                </ul>
+              </div>
+              <div class="benefit-card">
+                <h4>Finans (snapshot)</h4>
+                <pre id="financial-snapshot" style="white-space:pre-wrap; text-align:left;">Inntekter/mnd: NOK 20 000
+Variable kostnader (varer): NOK 9 000
+Faste kostnader (utstyr, emballasje, markedsføring): NOK 4 000
+Estimert netto/mnd: NOK 7 000
+Brekkevenn (mnd): ~1-2 ved pilotkostnader</pre>
+              </div>
+              <div class="benefit-card">
+                <h4>Bærekraft</h4>
+                <p>Vi prioriterer komposterbar emballasje, kort distribusjon fra lokale leverandører og minimalt matsvinn gjennom forhåndsbestilling.</p>
+                <ul style="text-align:left; margin-top:8px;"><li>Emballasje: komposterbar/papir</li><li>Leverandøravstand: &lt; 50km</li><li>Matsvinn-strategi: pre-order + restordre-donasjon</li></ul>
+              </div>
+              <div class="benefit-card">
+                <h4>Marked & validering</h4>
+                <p>Spørreundersøkelse gir innledende interesse. Venteliste og demo‑interesser viser ung målgruppe‑tiltredelse.</p>
+                <p style="margin-top:8px;">Nåværende indikatorer: <strong id="validation-count">30</strong> interesser / venteliste (lokalt)</p>
+                <div id="validation-chart" style="margin-top:8px; width:100%; height:80px;" aria-hidden="false"></div>
+              </div>
+            </div>
+            <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+              <button id="download-pitch-deck" class="btn-primary">Last ned pitch deck (.txt)</button>
+              <button id="print-judge-view" class="btn-secondary">Skriv ut dommer‑visning</button>
+              <button id="export-admin-csv" class="btn-secondary">Eksporter venteliste/interest (CSV)</button>
+            </div>
+          </div>
+        </section>
+
+    <section id="survey">
 
     <section id="survey">
       <h2>Spørreundersøkelse</h2>
@@ -1344,7 +1664,12 @@
         document.getElementById('modal-bio').textContent = data.bio || '';
         const photo = document.getElementById('modal-photo');
         if(data.img){ photo.src = data.img; photo.style.display = 'block'; } else { photo.style.display = 'none'; }
-        document.getElementById('modal-contact').innerHTML = data.contact ? `Kontakt: <a href="mailto:${data.contact}">${data.contact}</a>` : '';
+        // If this is Kanish, keep phone/email private
+        if(data.name && data.name.toLowerCase().includes('kanish')){
+          document.getElementById('modal-contact').innerHTML = 'Kontakt: Privat';
+        } else {
+          document.getElementById('modal-contact').innerHTML = data.contact ? `Kontakt: <a href="mailto:${data.contact}">${data.contact}</a>` : '';
+        }
         // social links (individual overrides or default to main handle)
         const ig = document.getElementById('modal-instagram');
         const tt = document.getElementById('modal-tiktok');
@@ -1362,6 +1687,9 @@
 
       closeBtn.addEventListener('click', closeModal);
       backdrop.addEventListener('click', closeModal);
+
+        // close modal on Escape
+        document.addEventListener('keydown', function(ev){ if(ev.key === 'Escape'){ closeModal(); const qm = document.getElementById('qr-modal'); if(qm && qm.classList.contains('visible')) qm.classList.remove('visible'); const pm = document.getElementById('modal-pitch'); if(pm && pm.classList.contains('visible')) pm.classList.remove('visible'); const press = document.getElementById('modal-press'); if(press && press.classList.contains('visible')) press.classList.remove('visible'); } });
 
       // attach click handlers to team cards
       document.querySelectorAll('.team-card').forEach(card => {
@@ -1381,6 +1709,34 @@
       });
     })();
   </script>
+  <!-- Pitch modal -->
+  <div id="modal-pitch" class="qr-modal" aria-hidden="true" role="dialog">
+    <div class="backdrop" id="pitch-backdrop"></div>
+    <div class="panel">
+      <button class="close-btn" onclick="document.getElementById('modal-pitch').classList.remove('visible')">✕</button>
+      <h3>YumBite — Pitch</h3>
+      <pre style="text-align:left; white-space:pre-wrap; background:transparent; border-radius:6px; padding:8px;">YumBite — Energi for dagen
+
+Vi tilbyr raske, sunne og rimelige frokost- og snackløsninger for elever. Vår tjeneste reduserer kø, sparer tid og tilbyr bærekraftige alternativer til kantinemat.</pre>
+      <div style="margin-top:10px; display:flex; gap:8px; justify-content:center;">
+        <button id="copy-pitch" class="btn-secondary">Kopier pitch</button>
+        <button id="download-pitch" class="btn-primary">Last ned pitch</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Press modal -->
+  <div id="modal-press" class="qr-modal" aria-hidden="true" role="dialog">
+    <div class="backdrop" id="press-backdrop"></div>
+    <div class="panel">
+      <button class="close-btn" onclick="document.getElementById('modal-press').classList.remove('visible')">✕</button>
+      <h3>Pressemelding</h3>
+      <pre style="text-align:left; white-space:pre-wrap; background:transparent; border-radius:6px; padding:8px;">PRESSEMELDING\nYumBite åpner snart ved Bjerke VGS: En ny elevdrevet tjeneste for rask og sunn frokost.</pre>
+      <div style="margin-top:10px; display:flex; gap:8px; justify-content:center;">
+        <button id="download-press" class="btn-primary">Last ned pressemelding</button>
+      </div>
+    </div>
+  </div>
 
   <style>
     /* Modal styles */
@@ -1389,7 +1745,7 @@
     .modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.45); }
     .modal-card { position: relative; z-index: 2; max-width: 720px; width: 94%; background: white; border-radius: 12px; padding: 22px; box-shadow: 0 30px 60px rgba(0,0,0,0.25); }
     .modal-close { position: absolute; right: 14px; top: 10px; border: none; background: transparent; font-size: 20px; cursor: pointer; }
-    .modal-photo { width: 140px; height: 140px; border-radius: 12px; object-fit: cover; float: left; margin-right: 18px; }
+  .modal-photo { width: min(140px, 36vw); height: min(140px, 36vw); border-radius: 12px; object-fit: cover; float: left; margin-right: 18px; }
     .modal-role { color: var(--muted); margin-bottom: 10px; }
     .modal-contact a { color: var(--accent-pink); text-decoration: none; font-weight: 700; }
     .modal-socials { display:flex; gap:10px; margin-top:8px; }
@@ -1450,5 +1806,377 @@
       });
     })();
   </script>
+  <script>
+    // QR modal open/close behavior
+    (function(){
+      function openModal(modal){
+        if(!modal) return;
+        modal.classList.add('visible');
+        modal.setAttribute('aria-hidden','false');
+        // prevent background scrolling
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+        // focus close button for accessibility
+        const close = modal.querySelector('.close-btn');
+        if(close) close.focus();
+      }
+      function closeModal(modal){
+        if(!modal) return;
+        modal.classList.remove('visible');
+        modal.setAttribute('aria-hidden','true');
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+      }
+
+      document.addEventListener('DOMContentLoaded', function(){
+        const btn = document.getElementById('qr-show');
+        const modal = document.getElementById('qr-modal');
+        const backdrop = document.getElementById('qr-backdrop');
+        const closeBtn = document.getElementById('qr-close');
+        if(!btn || !modal) return;
+        btn.addEventListener('click', function(e){
+          e.preventDefault();
+          openModal(modal);
+        });
+        if(backdrop) backdrop.addEventListener('click', function(){ closeModal(modal); });
+        if(closeBtn) closeBtn.addEventListener('click', function(){ closeModal(modal); });
+        document.addEventListener('keydown', function(ev){ if(ev.key === 'Escape') closeModal(modal); });
+      });
+    })();
+  </script>
+  <script>
+    // Dark mode, back-to-top and QR share wiring
+    (function(){
+      // Dark mode toggle
+      function setDark(enabled){
+        if(enabled){ document.body.classList.add('dark'); localStorage.setItem('yb-dark','1'); }
+        else { document.body.classList.remove('dark'); localStorage.removeItem('yb-dark'); }
+      }
+      document.addEventListener('DOMContentLoaded', function(){
+        const darkBtn = document.getElementById('dark-toggle');
+        if(darkBtn){
+          darkBtn.addEventListener('click', function(){ setDark(!document.body.classList.contains('dark')); });
+        }
+        // apply saved theme
+        if(localStorage.getItem('yb-dark')) setDark(true);
+
+        // Back to top
+        const back = document.getElementById('back-to-top');
+        window.addEventListener('scroll', function(){
+          if(!back) return;
+          if(window.scrollY > 300) back.style.display = 'flex'; else back.style.display = 'none';
+        });
+        if(back) back.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
+
+        // QR modal share actions
+        const copyBtn = document.getElementById('qr-copy');
+        const openLink = document.getElementById('qr-open-link');
+        if(openLink) openLink.href = location.href;
+        if(copyBtn){
+          copyBtn.addEventListener('click', function(){
+            navigator.clipboard.writeText(location.href).then(()=>{
+              copyBtn.textContent = 'Kopiert!';
+              setTimeout(()=>{ copyBtn.textContent = 'Kopier lenke'; }, 1400);
+            }).catch(()=>{ copyBtn.textContent = 'Kunne ikke kopiere'; setTimeout(()=>{ copyBtn.textContent = 'Kopier lenke'; },1400); });
+          });
+        }
+        /* Interest & volunteer features (cart removed) */
+        const toast = document.getElementById('toast');
+        const products = {
+          1: { id:1, name:'Frokostpakke', img:'assets/breakfast1.jpg' },
+          2: { id:2, name:'Proteinbar', img:'assets/snack1.jpg' },
+          3: { id:3, name:'Kaffe (stor)', img:'assets/coffee.jpg' }
+        };
+
+        function showToast(msg){ if(!toast) return; toast.textContent = msg; toast.style.display = 'block'; setTimeout(()=>{ toast.style.display='none'; },1500); }
+
+        // Interests (registrer elever som viser interesse for et demo-produkt)
+        function loadInterests(){ return JSON.parse(localStorage.getItem('yb-interests')||'[]'); }
+        function saveInterests(list){ localStorage.setItem('yb-interests', JSON.stringify(list)); }
+        function bindInterestButtons(){
+          document.querySelectorAll('.interest-btn').forEach(b=>{
+            b.removeEventListener('click', b._yb_interest || function(){});
+            const handler = ()=>{
+              // prefer the waitlist email if filled, otherwise ask
+              const prefer = (document.getElementById('waitlist-email') && document.getElementById('waitlist-email').value) || '';
+              let email = prefer.trim();
+              if(!email){ email = prompt('Skriv inn e-post for å registrere interesse (f.eks. navn@epost.no)'); }
+              if(!email || !email.includes('@')){ showToast('Vennligst oppgi en gyldig e-post'); return; }
+              const pid = String(b.dataset.id || '0');
+              const p = products[pid] || { name: 'Produkt' };
+              const list = loadInterests();
+              list.push({ email: email, productId: pid, productName: p.name, time: new Date().toISOString() });
+              saveInterests(list);
+              showToast('Takk — interessen er registrert!');
+            };
+            b.addEventListener('click', handler);
+            b._yb_interest = handler;
+          });
+        }
+        bindInterestButtons();
+
+        /* Waitlist and supplier features */
+        function loadWaitlist(){ return JSON.parse(localStorage.getItem('yb-waitlist')||'[]'); }
+        function saveWaitlist(list){ localStorage.setItem('yb-waitlist', JSON.stringify(list)); }
+
+        const waitJoin = document.getElementById('waitlist-join');
+        const waitEmail = document.getElementById('waitlist-email');
+        const exportBtn = document.getElementById('export-waitlist');
+        const showDemo = document.getElementById('show-demo');
+
+        if(waitJoin){
+          waitJoin.addEventListener('click', ()=>{
+            const email = (waitEmail && waitEmail.value || '').trim();
+            if(!email || !email.includes('@')){ showToast('Skriv inn en gyldig e-post'); return; }
+            const list = loadWaitlist();
+            if(list.includes(email)) { showToast('Du er allerede på ventelisten'); if(waitEmail) waitEmail.value=''; return; }
+            list.push(email); saveWaitlist(list);
+            showToast('Takk — du er på ventelisten!'); if(waitEmail) waitEmail.value='';
+          });
+        }
+
+        if(exportBtn){
+          exportBtn.addEventListener('click', ()=>{
+            const list = loadWaitlist();
+            const text = list.join('\n');
+            if(!text){ showToast('Ventelisten er tom'); return; }
+            navigator.clipboard.writeText(text).then(()=>{ showToast('Venteliste kopiert'); }).catch(()=>{ showToast('Kunne ikke kopiere'); });
+          });
+        }
+
+        if(showDemo){
+          showDemo.addEventListener('click', ()=>{
+            const demo = document.getElementById('demo-products');
+            if(!demo) return;
+            const visible = demo.style.display !== 'none';
+            demo.style.display = visible ? 'none' : 'block';
+            showDemo.textContent = visible ? 'Vis demo-produkter' : 'Skjul demo-produkter';
+            // re-bind interest buttons inside demo area
+            bindInterestButtons();
+          });
+        }
+
+        // Supplier contact handlers
+        const supplierContact = document.getElementById('supplier-contact');
+        const supplierCopy = document.getElementById('supplier-copy');
+        const sName = document.getElementById('supplier-name');
+        const sEmail = document.getElementById('supplier-email');
+        const sMessage = document.getElementById('supplier-message');
+
+        function buildSupplierMail(){
+          const to = 'muniraawil1@gmail.com';
+          const name = (sName && sName.value) || '';
+          const email = (sEmail && sEmail.value) || '';
+          const msg = (sMessage && sMessage.value) || '';
+          const subject = encodeURIComponent('YumBite - Leverandørsamarbeid');
+          const body = encodeURIComponent(`Firma / navn: ${name}\nE-post: ${email}\n\nMelding:\n${msg}\n\nSendt fra: ${location.href}`);
+          return `mailto:${to}?subject=${subject}&body=${body}`;
+        }
+
+        if(supplierContact){
+          supplierContact.addEventListener('click', ()=>{
+            const mailto = buildSupplierMail();
+            // open mail client
+            window.location.href = mailto;
+            showToast('Åpner e-postklient...');
+          });
+        }
+
+        if(supplierCopy){
+          supplierCopy.addEventListener('click', ()=>{
+            const to = 'muniraawil1@gmail.com';
+            const payload = `Til: ${to}\n${sName?('Firma/n: '+(sName.value||'')+'\n'):''}${sEmail?('E-post: '+(sEmail.value||'')+'\n'):''}\nMelding:\n${sMessage?sMessage.value:''}`;
+            navigator.clipboard.writeText(payload).then(()=>{ showToast('E-posten kopiert'); }).catch(()=>{ showToast('Kunne ikke kopiere'); });
+          });
+        }
+
+        // Winning toolkit: pitch and press kit handlers
+        const pitchText = `YumBite — Energi for dagen\n\nVi tilbyr raske, sunne og rimelige frokost- og snackløsninger for elever. Vår tjeneste reduserer kø, sparer tid og tilbyr bærekraftige alternativer til kantinemat. Vi samarbeider med lokale leverandører og fokuserer på effektiv logistikk og elevtilpassede menyer.\n\nNøkkelpunkter:\n- Rask levering (1-2 min)\n- Rimelige priser\n- Bærekraftig emballasje\n- Skalerbart oppsett for skoler\n\nKontakt: REsnack.ub@gmail.com`;
+
+        const pressText = `PRESSEMELDING\n\nYumBite åpner snart ved Bjerke VGS: En ny elevdrevet tjeneste for rask og sunn frokost. Prosjektet kombinerer entreprenørskap, bærekraft og praktisk logistikk for å gi elever et bedre tilbud på skolen.\n\nKontakt for presse: REsnack.ub@gmail.com`;
+
+        function openModalById(id){ const m = document.getElementById(id); if(!m) return; m.classList.add('visible'); document.body.style.overflow='hidden'; const close = m.querySelector('.close-btn'); if(close) close.focus(); }
+        function closeModalById(id){ const m = document.getElementById(id); if(!m) return; m.classList.remove('visible'); document.body.style.overflow=''; }
+
+        document.addEventListener('click', function(e){
+          if(e.target && e.target.id === 'open-pitch') { openModalById('modal-pitch'); }
+          if(e.target && e.target.id === 'open-press') { openModalById('modal-press'); }
+          if(e.target && e.target.id === 'copy-judge') {
+            const judge = `Kort sammendrag (dommere):\n1) Problem: Mattilbud og tidspress for elever.\n2) Løsning: YumBite — rask, rimelig og bærekraftig levering i skolemiljøet.\n3) Skalerbarhet: Lett å rulle ut til flere skoler.\n4) Bærekraft: Fokus på miljøvennlig emballasje.\n`; navigator.clipboard.writeText(judge).then(()=>showToast('Dommer‑sammendrag kopiert')); }
+          if(e.target && e.target.id === 'download-pitch') {
+            const blob = new Blob([pitchText], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.href = url; a.download = 'YumBite-pitch.txt'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+          }
+          if(e.target && e.target.id === 'download-judge-onepager'){
+            const onepager = `YumBite — One‑pager for dommere\n\nProblem:\nElever har begrenset tid til frokost og lange kantinekøer, noe som fører til dårligere ernæring og tidspress.\n\nLøsning:\nYumBite leverer raske, rimelige og bærekraftige frokost- og snackløsninger direkte på skolen. Fokus på lave ventetider, enkel bestilling og miljøvennlig emballasje.\n\nForretningsmodell:\nSalg per enhet, samarbeid med lokale leverandører og mulighet for abonnementsløsninger for faste leveranser til skoler.\n\nTraction:\nVenteliste, demonstrasjoner og elevinteresse (se tall på siden).\n\nTeam:\nEt entusiastisk elevteam med ansvar for drift, logistikk og markedsføring.\n\nAsk:\nStøtte til pilotdrift og samarbeid med flere skoler; kontakt: REsnack.ub@gmail.com\n`;
+            const blob = new Blob([onepager], { type:'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.href = url; a.download = 'YumBite-onepager.txt'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+          }
+        });
+
+        // modal copy/download buttons
+        document.addEventListener('click', function(e){
+          if(e.target && e.target.id === 'copy-pitch') { navigator.clipboard.writeText(pitchText).then(()=>showToast('Pitch kopiert')); }
+          if(e.target && e.target.id === 'download-press') { const blob = new Blob([pressText], { type: 'text/plain' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'YumBite-press.txt'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); }
+          if(e.target && e.target.id === 'pitch-cta') { openModalById('modal-pitch'); }
+          if(e.target && e.target.classList && e.target.classList.contains('close-btn')) { // close any visible modal
+            const modals = document.querySelectorAll('.qr-modal.visible'); modals.forEach(m=>m.classList.remove('visible')); document.body.style.overflow='';
+          }
+        });
+
+        // visitor and counters initialization
+        function ensureVisitorCount(){
+          // unique-per-browser visitor id; increments the local visitor count once per browser
+          // Ensure a sensible minimum (e.g. from your manual tracking)
+          const MIN_VISITORS = 30;
+          let count = Number(localStorage.getItem('yb-visitor-count')||'0');
+          if(count < MIN_VISITORS) count = MIN_VISITORS;
+          if(!localStorage.getItem('yb-visitor-id')){
+            // first time in this browser -> assign id and count as a new visit
+            localStorage.setItem('yb-visitor-id', Math.random().toString(36).slice(2));
+            count = count + 1;
+          }
+          localStorage.setItem('yb-visitor-count', String(count));
+          return count;
+        }
+
+        // Removed Firebase global visitor code per request.
+        // Set explicit demo counter targets: students=30, suppliers=9, days=54.
+        (function setDynamicCounters(){
+          const forceStudents = 30;
+          const forceSuppliers = 9;
+          const forceDays = 54; // fixed demo value
+          const elStudents = document.getElementById('counter-students'); if(elStudents) elStudents.dataset.target = String(forceStudents);
+          const elSuppliers = document.getElementById('counter-suppliers'); if(elSuppliers) elSuppliers.dataset.target = String(forceSuppliers);
+          const elDays = document.getElementById('counter-days'); if(elDays) elDays.dataset.target = String(forceDays);
+          // Run animation once to show values immediately
+          animateCounters();
+        })();
+
+        // counters animation when visible
+        function animateCounters(){ document.querySelectorAll('.counter').forEach(el=>{
+          if(el.dataset.animated) return; const rect = el.getBoundingClientRect(); if(rect.top < window.innerHeight-50){ el.dataset.animated = '1'; const target = Number(el.dataset.target||0); let cur = 0; const step = Math.max(1, Math.floor(target/60)); const iv = setInterval(()=>{ cur += step; if(cur >= target){ el.textContent = target; clearInterval(iv); } else el.textContent = cur; }, 16); }
+        }); }
+        window.addEventListener('scroll', animateCounters); window.addEventListener('load', animateCounters);
+
+        // cart removed - no cart actions
+
+        // keyboard shortcuts
+        document.addEventListener('keydown', function(e){
+          if(e.key === 's') { document.getElementById('survey') && document.getElementById('survey').scrollIntoView({behavior:'smooth'}); }
+          if(e.key === 'q') { document.getElementById('qr-show') && document.getElementById('qr-show').click(); }
+        });
+      });
+    })();
+  </script>
+  <script>
+    // Competition kit helpers: download pitch deck, print judge view, export CSV
+    document.addEventListener('click', function(e){
+      if(!e.target) return;
+      // download a simple pitch deck as .txt
+      if(e.target.id === 'download-pitch-deck'){
+        const deck = `YumBite - Pitch Deck\n\nProblem:\nElever har begrenset tid til frokost og lange kantinekøer.\n\nLøsning:\nYumBite tilbyr raske, rimelige og bærekraftige frokost- og snackløsninger direkte på skolen.\n\nForretningsmodell:\nSalg per enhet; mulighet for abonnementsløsning for faste leveranser til klasser.\n\nFinans (snapshot):\nSe nettsidens økonomiske oversikt.\n\nTeam:\nEt engasjert elevteam med ansvar for drift, logistikk og markedsføring.\n\nKontakt: REsnack.ub@gmail.com`;
+        const blob = new Blob([deck], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = 'YumBite-pitch-deck.txt'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+        if(window.showToast) showToast('Pitch deck lastet ned');
+      }
+
+      if(e.target.id === 'print-judge-view'){
+        const students = document.getElementById('counter-students')?.dataset?.target || document.getElementById('counter-students')?.textContent || '30';
+        const suppliers = document.getElementById('counter-suppliers')?.dataset?.target || document.getElementById('counter-suppliers')?.textContent || '9';
+        const days = document.getElementById('counter-days')?.dataset?.target || document.getElementById('counter-days')?.textContent || '54';
+        const judgesHtml = document.getElementById('for-judges') ? document.getElementById('for-judges').innerHTML : '';
+        const html = `<!doctype html><html><head><meta charset="utf-8"><title>YumBite - Dommeroversikt</title><style>body{font-family:Arial,Helvetica,sans-serif;padding:18px;color:#021017;}h1{font-size:24px;}h2{margin-top:12px;} .kpi{font-size:20px;font-weight:700;margin-bottom:8px;} .section{margin-bottom:18px;border-bottom:1px solid #eee;padding-bottom:10px;}</style></head><body><h1>YumBite — Dommeroversikt</h1><div class="section"><div class="kpi">Studenter nådd: ${students}</div><div class="kpi">Leverandører kontaktet: ${suppliers}</div><div class="kpi">Dager til åpning: ${days}</div></div><div class="section">${judgesHtml}</div><div class="section"><h2>Forretningsmodell & økonomi</h2><pre style="white-space:pre-wrap;">Inntekter/mnd: NOK 20 000\nVariable kostnader (varer): NOK 9 000\nFaste kostnader: NOK 4 000\nEstimert netto/mnd: NOK 7 000</pre></div><div style="margin-top:20px;">Generated from YumBite website — klar for utskrift.</div></body></html>`;
+        const w = window.open('', '_blank'); if(!w) { if(window.showToast) showToast('Popup blokkert — tillat popup for å se utgave'); return; } w.document.write(html); w.document.close(); w.focus();
+      }
+
+      if(e.target.id === 'export-admin-csv'){
+        const wait = JSON.parse(localStorage.getItem('yb-waitlist')||'[]');
+        const interests = JSON.parse(localStorage.getItem('yb-interests')||'[]');
+        let csv = 'type,email,extra,time\n';
+        wait.forEach((r,i)=>{ const email = (typeof r === 'string')? r : (r.email||''); csv += `waitlist,${email.replace(/\r|\n|,/g,' ')},,${i}\n`; });
+        interests.forEach(it=>{ const email = it.email||''; const product = it.productName||it.productId||''; const time = it.time||''; csv += `interest,${email.replace(/\r|\n|,/g,' ')},${product.replace(/\r|\n|,/g,' ')},${time}\n`; });
+        // try copy to clipboard first
+        navigator.clipboard.writeText(csv).then(()=>{ if(window.showToast) showToast('CSV kopiert til utklippstavlen'); }).catch(()=>{
+          const blob = new Blob([csv], { type: 'text/csv' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'yumbite-export.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); if(window.showToast) showToast('CSV lastet ned');
+        });
+      }
+    });
+  </script>
+  <script>
+    // Render a small validation chart using localStorage counts (waitlist & interests)
+    (function renderValidation(){
+      try{
+        const wait = JSON.parse(localStorage.getItem('yb-waitlist')||'[]');
+        const interests = JSON.parse(localStorage.getItem('yb-interests')||'[]');
+        const waitCount = Array.isArray(wait) ? wait.length : 0;
+        const intCount = Array.isArray(interests) ? interests.length : 0;
+        const validationCountEl = document.getElementById('validation-count');
+        if(validationCountEl) validationCountEl.textContent = String(Math.max(30, waitCount + intCount));
+        const chart = document.getElementById('validation-chart');
+        if(!chart) return;
+        const max = Math.max(1, waitCount, intCount, 30);
+        const w = chart.clientWidth || 300; const h = 80;
+        const svgNS = 'http://www.w3.org/2000/svg';
+        const svg = document.createElementNS(svgNS, 'svg'); svg.setAttribute('width', '100%'); svg.setAttribute('height', h);
+        // bars: waitlist, interests, baseline(30)
+        const data = [{label:'Venteliste', v:waitCount},{label:'Interesse', v:intCount},{label:'Mål (min)', v:30}];
+        const barW = Math.floor(w / (data.length*1.5));
+        data.forEach((d,i)=>{
+          const bw = Math.max(8, Math.round((d.v/max) * (w*0.28)));
+          const x = 12 + i * (w*0.32);
+          const rect = document.createElementNS(svgNS, 'rect');
+          rect.setAttribute('x', x);
+          rect.setAttribute('y', h - (bw/2) - 12);
+          rect.setAttribute('width', barW);
+          rect.setAttribute('height', Math.max(6, Math.round((d.v/max) * (h-24))));
+          rect.setAttribute('fill', i===2? '#ffa726' : (i===1? '#2D8CFF' : '#ff66a3'));
+          svg.appendChild(rect);
+          const txt = document.createElementNS(svgNS, 'text'); txt.setAttribute('x', x); txt.setAttribute('y', h - 2); txt.setAttribute('fill','#082027'); txt.setAttribute('font-size','11'); txt.textContent = `${d.label} (${d.v})`;
+          svg.appendChild(txt);
+        });
+        chart.innerHTML = ''; chart.appendChild(svg);
+      }catch(err){ console.warn('validation chart error', err); }
+    })();
+  </script>
+  <script>
+    // Auto-clamp: detect elements wider than viewport and clamp them to prevent horizontal scroll
+    (function clampWideElements(){
+      function scanAndClamp(){
+        try{
+          const vw = document.documentElement.clientWidth || window.innerWidth;
+          const offenders = [];
+          Array.from(document.querySelectorAll('body *')).forEach(el=>{
+            // ignore elements removed or not displayed
+            if(!(el instanceof HTMLElement)) return;
+            const style = window.getComputedStyle(el);
+            if(style.display === 'none' || style.visibility === 'hidden') return;
+            const w = el.offsetWidth;
+            if(w > vw + 1){
+              offenders.push({el, w});
+              // clamp aggressively but non-destructively
+              el.style.maxWidth = '100%';
+              el.style.boxSizing = 'border-box';
+              el.style.overflowX = 'hidden';
+              // add temporary outline to indicate it was clamped (helps debugging)
+              el.dataset._clamped = '1';
+            }
+          });
+          if(offenders.length){
+            console.warn('Clamped wide elements to prevent horizontal scrolling:', offenders.map(o=>({tag:o.el.tagName, cls:o.el.className, w:o.w}))); 
+            // briefly flash outlines for user visibility
+            offenders.forEach(o=>{ o.el.style.outline = '2px solid rgba(255,0,0,0.75)'; });
+            setTimeout(()=>{ offenders.forEach(o=>{ if(o.el) o.el.style.outline = ''; }); }, 2200);
+          }
+        }catch(err){ console.warn('clampWideElements failed', err); }
+      }
+      window.addEventListener('load', scanAndClamp);
+      window.addEventListener('resize', function(){ setTimeout(scanAndClamp, 150); });
+    })();
+  </script>
 </body>
 </html>
+
